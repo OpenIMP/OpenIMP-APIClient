@@ -1,5 +1,8 @@
 use 5.010001;
 use ExtUtils::MakeMaker;
+use strict;
+use warnings;
+
 # See lib/ExtUtils/MakeMaker.pm for details of how to influence
 # the contents of the Makefile that is written.
 WriteMakefile(
@@ -11,7 +14,7 @@ WriteMakefile(
         'MooseX::Types::Moose' => 0,
         'MooseX::Types::URI' => 0,
         'Method::Signatures::Simple' => 0,
-        'LWP::UserAgent',
+        'LWP::UserAgent' => 0,
         'JSON' => 0,
         'MooseX::Getopt' => 0,
         'Try::Tiny' => 0,
