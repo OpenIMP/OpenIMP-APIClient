@@ -11,7 +11,8 @@ Build-Depends-Indep: perl (>= 5.10.1),
     libwww-perl,
     libjson-perl,
     libtry-tiny-perl,
-    libnamespace-autoclean-perl
+    libnamespace-autoclean-perl,
+    libmoosex-getopt-perl
 Maintainer: state51 <svn-notify@state51.co.uk>
 Standards-Version: 3.7.2
 Homepage: http://state51.co.uk/
@@ -27,7 +28,8 @@ Depends: ${perl:Depends}, ${misc:Depends},
     libwww-perl,
     libjson-perl,
     libtry-tiny-perl,
-    libnamespace-autoclean-perl
+    libnamespace-autoclean-perl,
+    libmoosex-getopt-perl
 Description: state51 API client.
 Replaces: libstate51-perl (<<2011111101)
 Breaks: libstate51-perl (<<2011111101)
