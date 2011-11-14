@@ -1,0 +1,17 @@
+Source: libstate51-apiclient-perl
+Section: perl
+Priority: optional
+Build-Depends: debhelper (>= 5.0.0)
+Build-Depends-Indep: perl (>= 5.10.1),
+    libstate51-shared-perl
+Maintainer: state51 <svn-notify@state51.co.uk>
+Standards-Version: 3.7.2
+Homepage: http://state51.co.uk/
+
+Package: libstate51-apiclient-perl
+Architecture: all
+Depends: ${perl:Depends}, ${misc:Depends},
+    libstate51-shared-perl
+Description: state51 API client.
+Replaces: libstate51-perl (<<2011111101)
+Breaks: libstate51-perl (<<2011111101)
