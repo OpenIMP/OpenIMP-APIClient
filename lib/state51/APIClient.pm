@@ -1,37 +1,25 @@
 package state51::APIClient;
 
-use 5.010001;
-use strict;
-use warnings;
-
-require Exporter;
-use AutoLoader qw(AUTOLOAD);
-
-our @ISA = qw(Exporter);
-
-# Items to export into callers namespace by default. Note: do not export
-# names by default without a very good reason. Use EXPORT_OK instead.
-# Do not simply export all your public functions/methods/constants.
-
-# This allows declaration	use state51::APIClient ':all';
-# If you do not need this, moving things directly into @EXPORT or @EXPORT_OK
-# will save memory.
-our %EXPORT_TAGS = ( 'all' => [ qw(
-	
-) ] );
-
-our @EXPORT_OK = ( @{ $EXPORT_TAGS{'all'} } );
-
-our @EXPORT = qw(
-	
-);
+use MooseX::Singleton;
+use YAML ();
 
 our $VERSION = '2011111400';
 
+with qw/ state51::Mixin::APIClient /;
 
-# Preloaded methods go here.
+sub BUILDARGS {
+    my ($self) = shift;
+    my $args = $self->SUPER::BUILDARGS(@_);
 
-# Autoload methods go after =cut, and are processed by the autosplit program.
+    my $conf = YAML::LoadFile("/etc/state51-api-auth.yml");
+    $args->{uri}      ||= $conf->{s51_api}->{uri};
+    $args->{user}     ||= $conf->{s51_api}->{username};
+    $args->{password} ||= $conf->{s51_api}->{password};
+
+    return $args;
+}
+
+
 
 1;
 __END__
