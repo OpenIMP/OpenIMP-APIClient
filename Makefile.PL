@@ -5,8 +5,10 @@ use ExtUtils::MakeMaker;
 WriteMakefile(
     NAME              => 'state51::APIClient',
     VERSION_FROM      => 'lib/state51/APIClient.pm', # finds $VERSION
-    PREREQ_PM         => {}, # e.g., Module::Name => 1.1
+    PREREQ_PM         => {
+        'state51::Shared' => 0,
+    }, # e.g., Module::Name => 1.1
     ($] >= 5.005 ?     ## Add these new keywords supported since 5.005
       (ABSTRACT_FROM  => 'lib/state51/APIClient.pm', # retrieve abstract from module
-       AUTHOR         => 'Dave Lambley <davel@>') : ()),
+       AUTHOR         => 'Dave Lambley <davel@state51.co.uk>') : ()),
 );
