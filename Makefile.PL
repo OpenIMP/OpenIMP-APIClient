@@ -7,7 +7,15 @@ WriteMakefile(
     VERSION_FROM      => 'lib/state51/APIClient.pm', # finds $VERSION
     PREREQ_PM         => {
         'state51::Shared' => 0,
-    }, # e.g., Module::Name => 1.1
+        'MooseX::Types::Moose' => 0,
+        'MooseX::Types::URI' => 0,
+        'Method::Signatures::Simple' => 0,
+        'LWP::UserAgent',
+        'JSON' => 0,
+        'MooseX::Getopt' => 0,
+        'Try::Tiny' => 0,
+        'namespace::autoclean' => 0,
+    },
     ($] >= 5.005 ?     ## Add these new keywords supported since 5.005
       (ABSTRACT_FROM  => 'lib/state51/APIClient.pm', # retrieve abstract from module
        AUTHOR         => 'Dave Lambley <davel@state51.co.uk>') : ()),
