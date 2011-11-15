@@ -1,25 +1,6 @@
 package state51::APIClient;
 
-use MooseX::Singleton;
-use YAML ();
-
 our $VERSION = '2011111400';
-
-with qw/ state51::Mixin::APIClient /;
-
-sub BUILDARGS {
-    my ($self) = shift;
-    my $args = $self->SUPER::BUILDARGS(@_);
-
-    my $conf = YAML::LoadFile("/etc/state51-api-auth.yml");
-    $args->{uri}      ||= $conf->{s51_api}->{uri};
-    $args->{user}     ||= $conf->{s51_api}->{username};
-    $args->{password} ||= $conf->{s51_api}->{password};
-
-    return $args;
-}
-
-
 
 1;
 __END__

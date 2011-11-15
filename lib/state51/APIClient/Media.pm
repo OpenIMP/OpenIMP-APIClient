@@ -5,6 +5,12 @@ use YAML ();
 
 with qw/ state51::Mixin::APIClient /;
 
+has class_prefix => (
+    isa => Str,
+    is  => 'ro',
+    default => 'state51::APIClient::Media::v1',
+);
+
 sub BUILDARGS {
     my ($self) = shift;
     my $args = $self->SUPER::BUILDARGS(@_);
@@ -15,6 +21,10 @@ sub BUILDARGS {
     $args->{password} ||= $conf->{s51_api}->{password};
 
     return $args;
+}
+
+sub BUILD {
+
 }
 
 __PACKAGE__->meta->make_immutable;
