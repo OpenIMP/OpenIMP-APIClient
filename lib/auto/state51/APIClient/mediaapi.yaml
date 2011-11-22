@@ -12,269 +12,221 @@ MFS::AssetController:
       type: Str
 MFS::File:
   attributes:
-    - documentation: The minor part of the MIME type
-      name: MimeMinor
-      type: Str
     - documentation: 'The size of the file, in bytes'
       name: FileSize
       type: Int
-    - documentation: The CRC32 digest of this file
-      name: crc32
-      type: Str
-    - documentation: The IP address of the client responsible for uploading this file.
-      name: UploaderIP
-      type: Str
     - documentation: A unique ID to refer to this file with
       name: Id
       type: Num
-    - documentation: 'This is one of 3 statuses: STORED (there is a file stored here, which you can retrieve), NOFILE (there is a file slot, with an ID, but nothing has been uploaded to it yet), DELETED (there was a file stored with this ID, but it was subsequently deleted and the ID cannot be re-used).'
-      name: Stored
+    - documentation: The major part of the MIME type
+      name: MimeMajor
+      type: Str
+    - documentation: The minor part of the MIME type
+      name: MimeMinor
       type: Str
     - documentation: The base64 encoded SHA1 digest of this file
       name: SHA1DigestBase64
       type: Str
-    - documentation: The major part of the MIME type
-      name: MimeMajor
+    - documentation: 'This is one of 3 statuses: STORED (there is a file stored here, which you can retrieve), NOFILE (there is a file slot, with an ID, but nothing has been uploaded to it yet), DELETED (there was a file stored with this ID, but it was subsequently deleted and the ID cannot be re-used).'
+      name: Stored
+      type: Str
+    - documentation: The IP address of the client responsible for uploading this file.
+      name: UploaderIP
+      type: Str
+    - documentation: The CRC32 digest of this file
+      name: crc32
       type: Str
 MFS::File::Audio:
   attributes:
-    - documentation: A list of zero or more tracks (i.e. MFS::Metadata::Track objects) associated with this file.
-      name: tracks
-      type: 'ArrayRef[MFS::Metadata::Track]'
-    - documentation: The minor part of the MIME type
-      name: MimeMinor
-      type: Str
-    - documentation: The encoding of this file
-      name: encoding
-      type: MFS::Metadata::Encoding
-    - documentation: The CRC32 digest of this file
-      name: crc32
-      type: Str
-    - documentation: The IP address of the client responsible for uploading this file.
-      name: UploaderIP
-      type: Str
-    - documentation: The major part of the MIME type
-      name: MimeMajor
-      type: Str
-    - documentation: 'The size of the file, in bytes'
-      name: FileSize
-      type: Int
+    - documentation: 'The bitrate of this file, in kbits per second. In the case of VBR encodings, this value should be the average bit rate.'
+      name: BitRate
+      type: Num
     - documentation: 'An ISO8601 duration for this audio file, e.g. PT0H3M31S'
       name: Duration
       type: MooseX::Types::ISO8601::ISO8601TimeDurationStr
-    - documentation: 'The bitrate of this file, in kbits per second. In the case of VBR encodings, this value should be the average bit rate.'
-      name: BitRate
-      type: Num
-    - documentation: A unique ID to refer to this file with
-      name: Id
-      type: Num
-    - documentation: 'This is one of 3 statuses: STORED (there is a file stored here, which you can retrieve), NOFILE (there is a file slot, with an ID, but nothing has been uploaded to it yet), DELETED (there was a file stored with this ID, but it was subsequently deleted and the ID cannot be re-used).'
-      name: Stored
-      type: Str
-    - documentation: The base64 encoded SHA1 digest of this file
-      name: SHA1DigestBase64
-      type: Str
+    - documentation: The encoding of this file
+      name: encoding
+      type: MFS::Metadata::Encoding
+    - documentation: A list of zero or more tracks (i.e. MFS::Metadata::Track objects) associated with this file.
+      name: tracks
+      type: 'ArrayRef[MFS::Metadata::Track]'
+  parent: MFS::File
 MFS::File::Image:
   attributes:
-    - documentation: The minor part of the MIME type
-      name: MimeMinor
-      type: Str
-    - documentation: The CRC32 digest of this file
-      name: crc32
-      type: Str
-    - documentation: The IP address of the client responsible for uploading this file.
-      name: UploaderIP
-      type: Str
-    - documentation: The major part of the MIME type
-      name: MimeMajor
-      type: Str
-    - documentation: The width of the image
-      name: width
-      type: Int
-    - documentation: 'The size of the file, in bytes'
-      name: FileSize
-      type: Int
-    - documentation: A unique ID to refer to this file with
-      name: Id
-      type: Num
-    - documentation: 'This is one of 3 statuses: STORED (there is a file stored here, which you can retrieve), NOFILE (there is a file slot, with an ID, but nothing has been uploaded to it yet), DELETED (there was a file stored with this ID, but it was subsequently deleted and the ID cannot be re-used).'
-      name: Stored
-      type: Str
-    - documentation: The base64 encoded SHA1 digest of this file
-      name: SHA1DigestBase64
-      type: Str
     - documentation: The height of the image
       name: height
       type: Int
+    - documentation: The width of the image
+      name: width
+      type: Int
+  parent: MFS::File
 MFS::File::Video:
   attributes:
-    - documentation: The minor part of the MIME type
-      name: MimeMinor
-      type: Str
-    - documentation: ~
-      name: encoding
-      type: MFS::Metadata::Encoding
-    - documentation: The CRC32 digest of this file
-      name: crc32
-      type: Str
-    - documentation: The IP address of the client responsible for uploading this file.
-      name: UploaderIP
-      type: Str
-    - documentation: The major part of the MIME type
-      name: MimeMajor
-      type: Str
-    - documentation: 'The size of the file, in bytes'
-      name: FileSize
-      type: Int
     - documentation: 'The bitrate of this file, in kbits per second. In the case of VBR encodings, this value should be the average bit rate.'
       name: BitRate
       type: Num
-    - documentation: A unique ID to refer to this file with
-      name: Id
-      type: Num
-    - documentation: 'This is one of 3 statuses: STORED (there is a file stored here, which you can retrieve), NOFILE (there is a file slot, with an ID, but nothing has been uploaded to it yet), DELETED (there was a file stored with this ID, but it was subsequently deleted and the ID cannot be re-used).'
-      name: Stored
-      type: Str
-    - documentation: The base64 encoded SHA1 digest of this file
-      name: SHA1DigestBase64
-      type: Str
+    - documentation: ~
+      name: encoding
+      type: MFS::Metadata::Encoding
+  parent: MFS::File
 MFS::FileToken:
   attributes:
-    - documentation: A URL which will serve a playlist containing 1 file (which is the file pointed to by the URL parameter
-      name: PlayURL
-      type: Str
-    - documentation: The File which this file key allows access to
-      name: file
-      type: MFS::File
+    - documentation: Number of attemtped (started) downloads of this token.
+      name: AttemptedDownloads
+      type: Num
+    - documentation: The unique (numeric) ID of this file token.
+      name: Id
+      type: Num
     - documentation: Maximum number of times someone can attempt (start) to download this token. Set this higher than MaxDownloadSuccesses to give a user chance to retry a download if for any reason their transfer aborts part way through.
       name: MaxDownloadAttempts
       type: Num
     - documentation: 'Maximum number of times someone can (fully) download this token. Ranged GET requests are not supported, so this is the number of complete (first to last byte) downloads allowed.'
       name: MaxDownloadSuccesses
       type: Num
-    - documentation: 'The externally accessible URL by which this token can be downloaded by a consumer. This URL is securely generated (wheras the Id is predictable, and so insecure for consumer downloads)'
-      name: URL
+    - documentation: A URL which will serve a playlist containing 1 file (which is the file pointed to by the URL parameter
+      name: PlayURL
       type: Str
-    - documentation: The unique (numeric) ID of this file token.
-      name: Id
-      type: Num
     - documentation: A URI to redirect the user to if they try to retrieve an expired token. If this field is not present then the user will be served a 410 (Gone) response
       name: RedirectWhenExpiredUrl
       type: MooseX::Types::URI::Uri|Undef
-    - documentation: 'If this is 1, then the token has an *unlimited* number of downloads, no matter what the other constraints say. 1 is true, 0 is false'
-      name: Unlimited
-      type: Bool
-    - documentation: Number of attemtped (started) downloads of this token.
-      name: AttemptedDownloads
-      type: Num
     - documentation: Number of successful complete (all bytes retrieved) downloads of this token.
       name: SuccessfulDownloads
       type: Num
+    - documentation: 'The externally accessible URL by which this token can be downloaded by a consumer. This URL is securely generated (wheras the Id is predictable, and so insecure for consumer downloads)'
+      name: URL
+      type: Str
+    - documentation: 'If this is 1, then the token has an *unlimited* number of downloads, no matter what the other constraints say. 1 is true, 0 is false'
+      name: Unlimited
+      type: Bool
     - documentation: 'Is this file key still valid, i.e. can a user who knows the URL still use it to download the file. 1 = valid, 0 = invalid'
       name: Valid
       type: Bool
+    - documentation: The File which this file key allows access to
+      name: file
+      type: MFS::File
 MFS::Metadata::Encoding:
   attributes:
-    - documentation: 'Codec is Coder/DECoder - the system used to encode this file.. This is usually similar to the Family'
-      name: Codec
-      type: Str
-    - documentation: 'The family of encodings to which this encoding belongs, e.g. mp3/wma'
-      name: Family
-      type: Str
     - documentation: 'For CBR encoding types, this is the bitrate of the file, for VBR encoding types, this is the average bitrate'
       name: Bitrate
-      type: Str
-    - documentation: 'If a none zero value, this encoding type is a preview of the full track, and the value of this field holds the preview length. If zero, this encoding type is not a preview'
-      name: PreviewLength
       type: Str
     - documentation: The number of channels present in this audio encoding. Usually 2.
       name: Channels
       type: Str
+    - documentation: 'Codec is Coder/DECoder - the system used to encode this file.. This is usually similar to the Family'
+      name: Codec
+      type: Str
     - documentation: A textual description of this encoding type
       name: Description
+      type: Str
+    - documentation: 'The family of encodings to which this encoding belongs, e.g. mp3/wma'
+      name: Family
       type: Str
     - documentation: This is a unique name for this encoding type
       name: Name
       type: Str
+    - documentation: 'If a none zero value, this encoding type is a preview of the full track, and the value of this field holds the preview length. If zero, this encoding type is not a preview'
+      name: PreviewLength
+      type: Str
 MFS::Metadata::Recording:
   attributes:
-    - documentation: A list of tracks (MFS::Metadata::Track objects) associated with this recording
-      name: tracks
-      type: 'ArrayRef[MFS::Metadata::Track]'
-    - documentation: A list of Ensembles for this recording
-      name: Ensembles
+    - documentation: A list of people listed as composers for this recording
+      name: AbbreviatedComposers
       type: 'ArrayRef[Str]'
     - documentation: A list of Actors for this recording
       name: Actors
       type: 'ArrayRef[Str]'
-    - documentation: A list of files (MFS::File::Audio objects) associated with this recording
-      name: files
-      type: 'ArrayRef[MFS::File]'
-    - documentation: A list of PrimaryMusicians for this recording
-      name: PrimaryMusicians
+    - documentation: A list of Adapters for this recording
+      name: Adapters
       type: 'ArrayRef[Str]'
-    - documentation: A list of GraphicDesigners for this recording
-      name: GraphicDesigners
+    - documentation: A list of Architects for this recording
+      name: Architects
       type: 'ArrayRef[Str]'
-    - documentation: A list of people listed as composers for this recording
-      name: AbbreviatedComposers
-      type: 'ArrayRef[Str]'
-    - documentation: A list of GraphicArtists for this recording
-      name: GraphicArtists
-      type: 'ArrayRef[Str]'
-    - documentation: A list of people listed as mixers for this recording
-      name: Mixers
-      type: 'ArrayRef[Str]'
-    - documentation: A list of FilmDirectors for this recording
-      name: FilmDirectors
-      type: 'ArrayRef[Str]'
-    - documentation: Unique identifiers for this recording from other sources (e.g. the ITunes specific ID
-      name: external_identifiers
-      type: 'HashRef[Str]'
-    - documentation: These are the other featured performers related to the recording
-      name: FeaturedArtists
-      type: 'ArrayRef[Str]'
-    - documentation: A list of Bands for this recording
-      name: Bands
-      type: 'ArrayRef[Str]'
-    - documentation: A list of OriginalPublishers for this recording
-      name: OriginalPublishers
-      type: 'ArrayRef[Str]'
-    - documentation: A list of Cartoonists for this recording
-      name: Cartoonists
-      type: 'ArrayRef[Str]'
-    - documentation: A list of AssociatedPerformers for this recording
-      name: AssociatedPerformers
-      type: 'ArrayRef[Str]'
-    - documentation: A list of Choreographers for this recording
-      name: Choreographers
-      type: 'ArrayRef[Str]'
-    - documentation: A list of SubArrangers for this recording
-      name: SubArrangers
-      type: 'ArrayRef[Str]'
-    - documentation: A list of Librettists for this recording
-      name: Librettists
-      type: 'ArrayRef[Str]'
-    - documentation: A list of Journalists for this recording
-      name: Journalists
-      type: 'ArrayRef[Str]'
-    - documentation: A list of people listed as producers for this recording
-      name: Producers
+    - documentation: A list of Arrangers for this recording
+      name: Arrangers
       type: 'ArrayRef[Str]'
     - documentation: This is the 'primary artist' or main credited performer orperformers.
       name: Artists
       type: 'ArrayRef[Str]'
-    - documentation: "This is the artist credited for this recording, it isn't necessarily an individual, it can be the name of a group, 'various' or 'A feat B'"
-      name: MainArtist
-      type: Str
+    - documentation: A list of AssociatedPerformers for this recording
+      name: AssociatedPerformers
+      type: 'ArrayRef[Str]'
     - documentation: A list of Authors for this recording
       name: Authors
+      type: 'ArrayRef[Str]'
+    - documentation: A list of Bands for this recording
+      name: Bands
+      type: 'ArrayRef[Str]'
+    - documentation: A list of Cartoonists for this recording
+      name: Cartoonists
+      type: 'ArrayRef[Str]'
+    - documentation: A list of Choirs for this recording
+      name: Choirs
+      type: 'ArrayRef[Str]'
+    - documentation: A list of Choreographers for this recording
+      name: Choreographers
+      type: 'ArrayRef[Str]'
+    - documentation: A list of ComposerLyricists for this recording
+      name: ComposerLyricists
+      type: 'ArrayRef[Str]'
+    - documentation: A list of people listed as composers for this recording
+      name: Composers
+      type: 'ArrayRef[Str]'
+    - documentation: A list of ComputerGraphicCreators for this recording
+      name: ComputerGraphicCreators
+      type: 'ArrayRef[Str]'
+    - documentation: A list of Contributors for this recording
+      name: Contributors
+      type: 'ArrayRef[Str]'
+    - documentation: A list of Designers for this recording
+      name: Designers
+      type: 'ArrayRef[Str]'
+    - documentation: 'An ISO8601 duration for this recording, e.g. PT0H3M31S'
+      name: Duration
+      type: MooseX::Types::ISO8601::ISO8601TimeDurationStr
+    - documentation: A list of Ensembles for this recording
+      name: Ensembles
+      type: 'ArrayRef[Str]'
+    - documentation: These are the other featured performers related to the recording
+      name: FeaturedArtists
+      type: 'ArrayRef[Str]'
+    - documentation: A list of FilmDirectors for this recording
+      name: FilmDirectors
+      type: 'ArrayRef[Str]'
+    - documentation: A list of GraphicArtists for this recording
+      name: GraphicArtists
+      type: 'ArrayRef[Str]'
+    - documentation: A list of GraphicDesigners for this recording
+      name: GraphicDesigners
       type: 'ArrayRef[Str]'
     - documentation: The International Sound Recording Code for this sound recording
       name: ISRC
       type: Str
-    - documentation: A list of Soloists for this recording
-      name: Soloists
+    - documentation: A list of Journalists for this recording
+      name: Journalists
+      type: 'ArrayRef[Str]'
+    - documentation: The name of the record label that this recording is released on
+      name: LabelName
+      type: Str
+    - documentation: A list of Librettists for this recording
+      name: Librettists
+      type: 'ArrayRef[Str]'
+    - documentation: A list of people listed as lyricists for this recording
+      name: Lyricists
+      type: 'ArrayRef[Str]'
+    - documentation: "This is the artist credited for this recording, it isn't necessarily an individual, it can be the name of a group, 'various' or 'A feat B'"
+      name: MainArtist
+      type: Str
+    - documentation: A list of people listed as mixers for this recording
+      name: Mixers
+      type: 'ArrayRef[Str]'
+    - documentation: A list of NonLyricAuthors for this recording
+      name: NonLyricAuthors
+      type: 'ArrayRef[Str]'
+    - documentation: A list of Orchestras for this recording
+      name: Orchestras
+      type: 'ArrayRef[Str]'
+    - documentation: A list of OriginalPublishers for this recording
+      name: OriginalPublishers
       type: 'ArrayRef[Str]'
     - documentation: A list of Painters for this recording
       name: Painters
@@ -282,288 +234,231 @@ MFS::Metadata::Recording:
     - documentation: A list of Photographers for this recording
       name: Photographers
       type: 'ArrayRef[Str]'
-    - documentation: A list of Adapters for this recording
-      name: Adapters
-      type: 'ArrayRef[Str]'
-    - documentation: A list of Orchestras for this recording
-      name: Orchestras
-      type: 'ArrayRef[Str]'
-    - documentation: A list of ComposerLyricists for this recording
-      name: ComposerLyricists
-      type: 'ArrayRef[Str]'
-    - documentation: A list of people listed as lyricists for this recording
-      name: Lyricists
-      type: 'ArrayRef[Str]'
-    - documentation: A list of Designers for this recording
-      name: Designers
-      type: 'ArrayRef[Str]'
     - documentation: A list of PhotographyDirectors for this recording
       name: PhotographyDirectors
-      type: 'ArrayRef[Str]'
-    - documentation: A list of Choirs for this recording
-      name: Choirs
-      type: 'ArrayRef[Str]'
-    - documentation: A list of ComputerGraphicCreators for this recording
-      name: ComputerGraphicCreators
-      type: 'ArrayRef[Str]'
-    - documentation: 'An ISO8601 duration for this recording, e.g. PT0H3M31S'
-      name: Duration
-      type: MooseX::Types::ISO8601::ISO8601TimeDurationStr
-    - documentation: A list of ScreenplayAuthors for this recording
-      name: ScreenplayAuthors
-      type: 'ArrayRef[Str]'
-    - documentation: A list of Programmers for this recording
-      name: Programmers
-      type: 'ArrayRef[Str]'
-    - documentation: The name of the record label that this recording is released on
-      name: LabelName
-      type: Str
-    - documentation: A list of Translators for this recording
-      name: Translators
-      type: 'ArrayRef[Str]'
-    - documentation: A list of people listed as composers for this recording
-      name: Composers
-      type: 'ArrayRef[Str]'
-    - documentation: A list of Arrangers for this recording
-      name: Arrangers
-      type: 'ArrayRef[Str]'
-    - documentation: A list of Architects for this recording
-      name: Architects
-      type: 'ArrayRef[Str]'
-    - documentation: A list of StudioPersonnels for this recording
-      name: StudioPersonnels
-      type: 'ArrayRef[Str]'
-    - documentation: A list of NonLyricAuthors for this recording
-      name: NonLyricAuthors
-      type: 'ArrayRef[Str]'
-    - documentation: A list of publishers for this recording
-      name: Publishers
       type: 'ArrayRef[Str]'
     - documentation: A list of Playwrights for this recording
       name: Playwrights
       type: 'ArrayRef[Str]'
-    - documentation: A list of Contributors for this recording
-      name: Contributors
+    - documentation: A list of PrimaryMusicians for this recording
+      name: PrimaryMusicians
       type: 'ArrayRef[Str]'
-MFS::Metadata::Release:
-  attributes:
-    - documentation: The date that this UPC was released.
-      name: ReleaseDate
-      type: MooseX::Types::ISO8601::ISO8601DateStr
-    - documentation: All the tracks (MFS::Metadata::Track) objects associated with this release
-      name: tracks
-      type: 'ArrayRef[MFS::Metadata::Track]'
-    - documentation: A list of the sub (free form) Genres that this belongs to
-      name: SubGenres
+    - documentation: A list of people listed as producers for this recording
+      name: Producers
       type: 'ArrayRef[Str]'
-    - documentation: A Type of Price according to its value range.
-      name: PriceRangeType
-      type: Str
-    - documentation: Unique identifiers for this release from other sources (e.g. the ITunes specific ID
+    - documentation: A list of Programmers for this recording
+      name: Programmers
+      type: 'ArrayRef[Str]'
+    - documentation: A list of publishers for this recording
+      name: Publishers
+      type: 'ArrayRef[Str]'
+    - documentation: A list of ScreenplayAuthors for this recording
+      name: ScreenplayAuthors
+      type: 'ArrayRef[Str]'
+    - documentation: A list of Soloists for this recording
+      name: Soloists
+      type: 'ArrayRef[Str]'
+    - documentation: A list of StudioPersonnels for this recording
+      name: StudioPersonnels
+      type: 'ArrayRef[Str]'
+    - documentation: A list of SubArrangers for this recording
+      name: SubArrangers
+      type: 'ArrayRef[Str]'
+    - documentation: A list of Translators for this recording
+      name: Translators
+      type: 'ArrayRef[Str]'
+    - documentation: Unique identifiers for this recording from other sources (e.g. the ITunes specific ID
       name: external_identifiers
       type: 'HashRef[Str]'
-    - documentation: These are the other featured performers related to the release
-      name: FeaturedArtists
+    - documentation: A list of files (MFS::File::Audio objects) associated with this recording
+      name: files
+      type: 'ArrayRef[MFS::File]'
+    - documentation: A list of tracks (MFS::Metadata::Track objects) associated with this recording
+      name: tracks
+      type: 'ArrayRef[MFS::Metadata::Track]'
+MFS::Metadata::Release:
+  attributes:
+    - documentation: This is the 'primary artist' or main credited performer orperformers.
+      name: Artists
       type: 'ArrayRef[Str]'
-    - documentation: The subtitle of this release
-      name: SubTitle
-      type: Str
-    - documentation: An Identifier used to number Creations listed in a catalog.
-      name: CatalogNumber
+    - documentation: The legal name of the rights holder
+      name: CLineText
       type: Str
     - documentation: The year of copyright
       name: CLineYear
       type: Num|Undef
-    - documentation: This is the 'primary artist' or main credited performer orperformers.
-      name: Artists
-      type: 'ArrayRef[Str]'
-    - documentation: The main artist responsible for releasing this release
-      name: MainArtist
-      type: Str
-    - documentation: The year of copyright
-      name: PLineYear
-      type: Num|Undef
-    - documentation: The legal name of the rights holder
-      name: CLineText
-      type: Str
-    - documentation: The title of this release
-      name: ReferenceTitle
-      type: Str
-    - documentation: The GRiD for this release or track
-      name: GRiD
-      type: 'Maybe[Str]'
-    - documentation: A list of the main (fixed) Genres that this belongs to
-      name: Genres
-      type: 'ArrayRef[Str]'
-    - documentation: ~
-      name: offers
-      type: ArrayRef
-    - documentation: 'The front cover artwork for this release. This is a file in the system, and you can create a file token for it if you want/need to.'
-      name: imagefrontcover
-      type: 'Maybe[MFS::File::Image]'
-    - documentation: 'An ISO8601 duration for this recording, e.g. PT0H3M31S'
-      name: Duration
-      type: MooseX::Types::ISO8601::ISO8601TimeDurationStr
-    - documentation: 'Possible values of this field are: Explicit, NoAdviceAvailable, ExplicitContentEdited, NotExplicit'
-      name: ParentalWarningType
-      type: Str
-    - documentation: The name of the music label which published this release
-      name: LabelName
-      type: Str
-    - documentation: 'The type of release, e.g. EP'
-      name: ReleaseType
+    - documentation: An Identifier used to number Creations listed in a catalog.
+      name: CatalogNumber
       type: Str
     - documentation: The short (displayable) artist for this release
       name: DisplayArtist
       type: Str
+    - documentation: 'An ISO8601 duration for this recording, e.g. PT0H3M31S'
+      name: Duration
+      type: MooseX::Types::ISO8601::ISO8601TimeDurationStr
+    - documentation: These are the other featured performers related to the release
+      name: FeaturedArtists
+      type: 'ArrayRef[Str]'
+    - documentation: The GRiD for this release or track
+      name: GRiD
+      type: 'Maybe[Str]'
+    - documentation: A list of the main (fixed) Genres that this belongs to
+      name: Genres
+      type: 'ArrayRef[Str]'
+    - documentation: The name of the music label which published this release
+      name: LabelName
+      type: Str
+    - documentation: The main artist responsible for releasing this release
+      name: MainArtist
+      type: Str
     - documentation: The legal name of the rights holder
       name: PLineText
+      type: Str
+    - documentation: The year of copyright
+      name: PLineYear
+      type: Num|Undef
+    - documentation: 'Possible values of this field are: Explicit, NoAdviceAvailable, ExplicitContentEdited, NotExplicit'
+      name: ParentalWarningType
+      type: Str
+    - documentation: A Type of Price according to its value range.
+      name: PriceRangeType
+      type: Str
+    - documentation: The title of this release
+      name: ReferenceTitle
+      type: Str
+    - documentation: The date that this UPC was released.
+      name: ReleaseDate
+      type: MooseX::Types::ISO8601::ISO8601DateStr
+    - documentation: 'The type of release, e.g. EP'
+      name: ReleaseType
+      type: Str
+    - documentation: A list of the sub (free form) Genres that this belongs to
+      name: SubGenres
+      type: 'ArrayRef[Str]'
+    - documentation: The subtitle of this release
+      name: SubTitle
+      type: Str
+    - documentation: The total track count (across all volumes in the release)
+      name: TrackCount
       type: Str
     - documentation: The UPC for this release
       name: UPC
       type: state51::Types::Barcode
-    - documentation: The total track count (across all volumes in the release)
-      name: TrackCount
-      type: Str
+    - documentation: Unique identifiers for this release from other sources (e.g. the ITunes specific ID
+      name: external_identifiers
+      type: 'HashRef[Str]'
+    - documentation: 'The front cover artwork for this release. This is a file in the system, and you can create a file token for it if you want/need to.'
+      name: imagefrontcover
+      type: 'Maybe[MFS::File::Image]'
+    - documentation: ~
+      name: offers
+      type: ArrayRef
+    - documentation: All the tracks (MFS::Metadata::Track) objects associated with this release
+      name: tracks
+      type: 'ArrayRef[MFS::Metadata::Track]'
 MFS::Metadata::Track:
   attributes:
-    - documentation: The year of copyright
-      name: PLineYear
-      type: Num|Undef
-    - documentation: A list of the sub (free form) Genres that this belongs to
-      name: SubGenres
-      type: 'ArrayRef[Str]'
-    - documentation: The sound recording (MFS::Metadata::Recording) associcated with this track
-      name: recording
-      type: MFS::Metadata::Recording
-    - documentation: A list of files / encodings present for this track
-      name: files
-      type: 'ArrayRef[MFS::File]'
     - documentation: The legal name of the rights holder
       name: CLineText
+      type: Str
+    - documentation: The year of copyright
+      name: CLineYear
+      type: Num|Undef
+    - documentation: The artist name for this track
+      name: DisplayArtist
       type: Str
     - documentation: The GRiD for this release or track
       name: GRiD
       type: 'Maybe[Str]'
-    - documentation: The track's title
-      name: ReferenceTitle
-      type: Str
     - documentation: A list of the main (fixed) Genres that this belongs to
       name: Genres
       type: 'ArrayRef[Str]'
+    - documentation: The legal name of the rights holder
+      name: PLineText
+      type: Str
+    - documentation: The year of copyright
+      name: PLineYear
+      type: Num|Undef
+    - documentation: 'Possible values of this field are: Explicit, NoAdviceAvailable, ExplicitContentEdited, NotExplicit'
+      name: ParentalWarningType
+      type: Str
+    - documentation: The track's title
+      name: ReferenceTitle
+      type: Str
     - documentation: The track's overall sequence number in the release
       name: SequenceNumber
       type: Num
-    - documentation: ~
-      name: offers
-      type: ArrayRef
+    - documentation: A list of the sub (free form) Genres that this belongs to
+      name: SubGenres
+      type: 'ArrayRef[Str]'
     - documentation: The subtitle or remix version for this track
       name: SubTitle
-      type: Str
-    - documentation: 'Possible values of this field are: Explicit, NoAdviceAvailable, ExplicitContentEdited, NotExplicit'
-      name: ParentalWarningType
       type: Str
     - documentation: The number of this track within it's volume
       name: TrackNumber
       type: Num
-    - documentation: The year of copyright
-      name: CLineYear
-      type: Num|Undef
-    - documentation: The release (MFS::Metadata::Release) which this track is present on
-      name: release
-      type: MFS::Metadata::Release
-    - documentation: The legal name of the rights holder
-      name: PLineText
-      type: Str
-    - documentation: The artist name for this track
-      name: DisplayArtist
-      type: Str
     - documentation: The volume number of this volume of the release (e.g. disc 2 on a double CD is volume 2)
       name: VolumeNumber
       type: Int|Undef
+    - documentation: A list of files / encodings present for this track
+      name: files
+      type: 'ArrayRef[MFS::File]'
+    - documentation: ~
+      name: offers
+      type: ArrayRef
+    - documentation: The sound recording (MFS::Metadata::Recording) associcated with this track
+      name: recording
+      type: MFS::Metadata::Recording
+    - documentation: The release (MFS::Metadata::Release) which this track is present on
+      name: release
+      type: MFS::Metadata::Release
 MediaAPI::Data::Delivery:
   attributes:
+    - documentation: Your ID for this delivery
+      name: Id
+      type: Str
+    - documentation: DDEX party ID of the organisation on whos behalf this import was performed (may be one of your sub-organisations)
+      name: OrganisationDPID
+      type: Str
+    - documentation: Internal unique ID of the organisation on whos behalf this import was performed (may be one of your sub-organisations)
+      name: OrganisationId
+      type: Int
+    - documentation: The name of the organisation on whos behalf this delivery was performed (may be one of your sub-organisations)
+      name: OrganisationName
+      type: Str
     - documentation: FIXME
       name: Status
       type: Str
     - documentation: ~
       name: releases_completed
       type: 'ArrayRef[MFS::Metadata::Release]'
-    - documentation: The name of the organisation on whos behalf this delivery was performed (may be one of your sub-organisations)
-      name: OrganisationName
-      type: Str
-    - documentation: DDEX party ID of the organisation on whos behalf this import was performed (may be one of your sub-organisations)
-      name: OrganisationDPID
-      type: Str
-    - documentation: Your ID for this delivery
-      name: Id
-      type: Str
-    - documentation: Internal unique ID of the organisation on whos behalf this import was performed (may be one of your sub-organisations)
-      name: OrganisationId
-      type: Int
 MediaAPI::Data::Delivery::ByMe:
-  attributes:
-    - documentation: FIXME
-      name: Status
-      type: Str
-    - documentation: ~
-      name: releases_completed
-      type: 'ArrayRef[MFS::Metadata::Release]'
-    - documentation: The name of the organisation on whos behalf this delivery was performed (may be one of your sub-organisations)
-      name: OrganisationName
-      type: Str
-    - documentation: DDEX party ID of the organisation on whos behalf this import was performed (may be one of your sub-organisations)
-      name: OrganisationDPID
-      type: Str
-    - documentation: Your ID for this delivery
-      name: Id
-      type: Str
-    - documentation: Internal unique ID of the organisation on whos behalf this import was performed (may be one of your sub-organisations)
-      name: OrganisationId
-      type: Int
+  parent: MediaAPI::Data::Delivery
 MediaAPI::Data::Delivery::ToMe:
-  attributes:
-    - documentation: FIXME
-      name: Status
-      type: Str
-    - documentation: ~
-      name: releases_completed
-      type: 'ArrayRef[MFS::Metadata::Release]'
-    - documentation: The name of the organisation on whos behalf this delivery was performed (may be one of your sub-organisations)
-      name: OrganisationName
-      type: Str
-    - documentation: DDEX party ID of the organisation on whos behalf this import was performed (may be one of your sub-organisations)
-      name: OrganisationDPID
-      type: Str
-    - documentation: Your ID for this delivery
-      name: Id
-      type: Str
-    - documentation: Internal unique ID of the organisation on whos behalf this import was performed (may be one of your sub-organisations)
-      name: OrganisationId
-      type: Int
+  parent: MediaAPI::Data::Delivery
 MediaAPI::Data::ImportRequest:
   attributes:
-    - documentation: FIXME
-      name: Status
+    - documentation: Your ID for this import request
+      name: Id
       type: Str
-    - documentation: ~
-      name: releases_completed
-      type: 'ArrayRef[MFS::Metadata::Release]'
+    - documentation: DDEX party ID of the organisation on whos behalf this import was performed (may be one of your sub-organisations)
+      name: OrganisationDPID
+      type: Str
+    - documentation: Internal unique ID of the organisation on whos behalf this import was performed (may be one of your sub-organisations)
+      name: OrganisationId
+      type: Int
     - documentation: The name of the organisation on whos behalf this import was performed (may be one of your sub-organisations)
       name: OrganisationName
       type: Str
     - documentation: FIXME
+      name: Status
+      type: Str
+    - documentation: FIXME
       name: name
       type: Str
-    - documentation: DDEX party ID of the organisation on whos behalf this import was performed (may be one of your sub-organisations)
-      name: OrganisationDPID
-      type: Str
-    - documentation: Your ID for this import request
-      name: Id
-      type: Str
-    - documentation: Internal unique ID of the organisation on whos behalf this import was performed (may be one of your sub-organisations)
-      name: OrganisationId
-      type: Int
+    - documentation: ~
+      name: releases_completed
+      type: 'ArrayRef[MFS::Metadata::Release]'
     - documentation: ~
       name: releases_incomplete
       type: 'ArrayRef[MFS::Metadata::Release]'
@@ -577,18 +472,18 @@ MediaAPI::Data::Offer:
       type: Str
 MediaAPI::Data::Offer::Terms:
   attributes:
+    - documentation: The date and time this relationship began
+      name: Began
+      type: Str
     - documentation: A list of ISO country codes that this relationship applies in
       name: Countries
       type: 'ArrayRef[Str]'
-    - documentation: The price range type
-      name: Price
-      type: 'Maybe[Str]'
-    - documentation: The date and time this relationship began
-      name: Began
+    - documentation: The date and time this relationship ended
+      name: Ended
       type: Str
     - documentation: The date and time the pre order release date
       name: PreOrderReleaseDate
       type: Str
-    - documentation: The date and time this relationship ended
-      name: Ended
-      type: Str
+    - documentation: The price range type
+      name: Price
+      type: 'Maybe[Str]'
