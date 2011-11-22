@@ -6,6 +6,7 @@ use state51::APIClient;
 use YAML ();
 use Data::Dumper;
 use MooseX::Types::ISO8601;
+use Try::Tiny;
 
 with qw/ state51::Mixin::APIClient /;
 
@@ -82,7 +83,16 @@ sub load_class {
         $init{$k} = $crunch_value->($hash->{$k});
     }
 
-    return $class->new( %init );
+    my $obj;
+    try {
+        $obj = $class->new( %init );
+    }
+    catch {
+        warn Dumper( \%init );
+        die $_;
+    };
+
+    return $obj;
 }
 
 sub BUILD {
@@ -94,7 +104,14 @@ sub BUILD {
     my $prefix = $self->class_prefix;
 
     foreach my $class (keys(%{ $data })) {
-        my $meta = Moose::Meta::Class->create("$prefix$class");
+        my $superclass = $data->{$class}->{parent};
+        if ($superclass) {
+            $superclass = $prefix . $superclass;
+        }
+
+        my $meta = Moose::Meta::Class->create("$prefix$class",
+            $superclass ? ( superclasses => [ $superclass ] ) : ()
+        );
         foreach my $attr (@{ $data->{$class}->{attributes} }) {
             print "building $class / ".$attr->{name}."\n";
 
