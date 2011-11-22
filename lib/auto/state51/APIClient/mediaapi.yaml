@@ -492,3 +492,89 @@ MFS::Pager:
     - documentation: A list of the URLs of each of the pages in the set
       name: Pages
       type: 'ArrayRef[Str]'
+MediaAPI::Data::Delivery:
+  attributes:
+    - documentation: FIXME
+      name: Status
+      type: Str
+    - documentation: ~
+      name: releases_completed
+      type: 'ArrayRef[MFS::Metadata::Release]'
+    - documentation: The name of the organisation on whos behalf this delivery was performed (may be one of your sub-organisations)
+      name: OrganisationName
+      type: Str
+    - documentation: DDEX party ID of the organisation on whos behalf this import was performed (may be one of your sub-organisations)
+      name: OrganisationDPID
+      type: Str
+    - documentation: Your ID for this delivery
+      name: Id
+      type: Str
+    - documentation: Internal unique ID of the organisation on whos behalf this import was performed (may be one of your sub-organisations)
+      name: OrganisationId
+      type: Int
+MediaAPI::Data::Delivery::ByMe:
+  attributes:
+    - documentation: FIXME
+      name: Status
+      type: Str
+    - documentation: ~
+      name: releases_completed
+      type: 'ArrayRef[MFS::Metadata::Release]'
+    - documentation: The name of the organisation on whos behalf this delivery was performed (may be one of your sub-organisations)
+      name: OrganisationName
+      type: Str
+    - documentation: DDEX party ID of the organisation on whos behalf this import was performed (may be one of your sub-organisations)
+      name: OrganisationDPID
+      type: Str
+    - documentation: Your ID for this delivery
+      name: Id
+      type: Str
+    - documentation: Internal unique ID of the organisation on whos behalf this import was performed (may be one of your sub-organisations)
+      name: OrganisationId
+      type: Int
+MediaAPI::Data::Delivery::ToMe:
+  attributes:
+    - documentation: FIXME
+      name: Status
+      type: Str
+    - documentation: ~
+      name: releases_completed
+      type: 'ArrayRef[MFS::Metadata::Release]'
+    - documentation: The name of the organisation on whos behalf this delivery was performed (may be one of your sub-organisations)
+      name: OrganisationName
+      type: Str
+    - documentation: DDEX party ID of the organisation on whos behalf this import was performed (may be one of your sub-organisations)
+      name: OrganisationDPID
+      type: Str
+    - documentation: Your ID for this delivery
+      name: Id
+      type: Str
+    - documentation: Internal unique ID of the organisation on whos behalf this import was performed (may be one of your sub-organisations)
+      name: OrganisationId
+      type: Int
+MediaAPI::Data::ImportRequest:
+  attributes:
+    - documentation: FIXME
+      name: Status
+      type: Str
+    - documentation: ~
+      name: releases_completed
+      type: 'ArrayRef[MFS::Metadata::Release]'
+    - documentation: The name of the organisation on whos behalf this import was performed (may be one of your sub-organisations)
+      name: OrganisationName
+      type: Str
+    - documentation: FIXME
+      name: name
+      type: Str
+    - documentation: DDEX party ID of the organisation on whos behalf this import was performed (may be one of your sub-organisations)
+      name: OrganisationDPID
+      type: Str
+    - documentation: Your ID for this import request
+      name: Id
+      type: Str
+    - documentation: Internal unique ID of the organisation on whos behalf this import was performed (may be one of your sub-organisations)
+      name: OrganisationId
+      type: Int
+    - documentation: ~
+      name: releases_incomplete
+      type: 'ArrayRef[MFS::Metadata::Release]'
