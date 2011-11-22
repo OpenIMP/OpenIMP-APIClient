@@ -7,6 +7,7 @@ use YAML ();
 use Data::Dumper;
 use MooseX::Types::ISO8601;
 use Try::Tiny;
+use state51::Types;
 
 with qw/ state51::Mixin::APIClient /;
 
