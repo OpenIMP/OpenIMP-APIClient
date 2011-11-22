@@ -36,6 +36,108 @@ MFS::File:
     - documentation: The major part of the MIME type
       name: MimeMajor
       type: Str
+MFS::File::Audio:
+  attributes:
+    - documentation: A list of zero or more tracks (i.e. MFS::Metadata::Track objects) associated with this file.
+      name: tracks
+      type: 'ArrayRef[MFS::Metadata::Track]'
+    - documentation: The minor part of the MIME type
+      name: MimeMinor
+      type: Str
+    - documentation: The encoding of this file
+      name: encoding
+      type: MFS::Metadata::Encoding
+    - documentation: The CRC32 digest of this file
+      name: crc32
+      type: Str
+    - documentation: The IP address of the client responsible for uploading this file.
+      name: UploaderIP
+      type: Str
+    - documentation: The major part of the MIME type
+      name: MimeMajor
+      type: Str
+    - documentation: 'The size of the file, in bytes'
+      name: FileSize
+      type: Int
+    - documentation: 'An ISO8601 duration for this audio file, e.g. PT0H3M31S'
+      name: Duration
+      type: MooseX::Types::ISO8601::ISO8601TimeDurationStr
+    - documentation: 'The bitrate of this file, in kbits per second. In the case of VBR encodings, this value should be the average bit rate.'
+      name: BitRate
+      type: Num
+    - documentation: A unique ID to refer to this file with
+      name: Id
+      type: Num
+    - documentation: 'This is one of 3 statuses: STORED (there is a file stored here, which you can retrieve), NOFILE (there is a file slot, with an ID, but nothing has been uploaded to it yet), DELETED (there was a file stored with this ID, but it was subsequently deleted and the ID cannot be re-used).'
+      name: Stored
+      type: Str
+    - documentation: The base64 encoded SHA1 digest of this file
+      name: SHA1DigestBase64
+      type: Str
+MFS::File::Image:
+  attributes:
+    - documentation: The minor part of the MIME type
+      name: MimeMinor
+      type: Str
+    - documentation: The CRC32 digest of this file
+      name: crc32
+      type: Str
+    - documentation: The IP address of the client responsible for uploading this file.
+      name: UploaderIP
+      type: Str
+    - documentation: The major part of the MIME type
+      name: MimeMajor
+      type: Str
+    - documentation: The width of the image
+      name: width
+      type: Int
+    - documentation: 'The size of the file, in bytes'
+      name: FileSize
+      type: Int
+    - documentation: A unique ID to refer to this file with
+      name: Id
+      type: Num
+    - documentation: 'This is one of 3 statuses: STORED (there is a file stored here, which you can retrieve), NOFILE (there is a file slot, with an ID, but nothing has been uploaded to it yet), DELETED (there was a file stored with this ID, but it was subsequently deleted and the ID cannot be re-used).'
+      name: Stored
+      type: Str
+    - documentation: The base64 encoded SHA1 digest of this file
+      name: SHA1DigestBase64
+      type: Str
+    - documentation: The height of the image
+      name: height
+      type: Int
+MFS::File::Video:
+  attributes:
+    - documentation: The minor part of the MIME type
+      name: MimeMinor
+      type: Str
+    - documentation: ~
+      name: encoding
+      type: MFS::Metadata::Encoding
+    - documentation: The CRC32 digest of this file
+      name: crc32
+      type: Str
+    - documentation: The IP address of the client responsible for uploading this file.
+      name: UploaderIP
+      type: Str
+    - documentation: The major part of the MIME type
+      name: MimeMajor
+      type: Str
+    - documentation: 'The size of the file, in bytes'
+      name: FileSize
+      type: Int
+    - documentation: 'The bitrate of this file, in kbits per second. In the case of VBR encodings, this value should be the average bit rate.'
+      name: BitRate
+      type: Num
+    - documentation: A unique ID to refer to this file with
+      name: Id
+      type: Num
+    - documentation: 'This is one of 3 statuses: STORED (there is a file stored here, which you can retrieve), NOFILE (there is a file slot, with an ID, but nothing has been uploaded to it yet), DELETED (there was a file stored with this ID, but it was subsequently deleted and the ID cannot be re-used).'
+      name: Stored
+      type: Str
+    - documentation: The base64 encoded SHA1 digest of this file
+      name: SHA1DigestBase64
+      type: Str
 MFS::FileToken:
   attributes:
     - documentation: A URL which will serve a playlist containing 1 file (which is the file pointed to by the URL parameter
