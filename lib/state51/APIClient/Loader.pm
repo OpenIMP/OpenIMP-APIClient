@@ -103,7 +103,7 @@ sub BUILD {
 
     my $prefix = $self->class_prefix;
 
-    foreach my $class (keys(%{ $data })) {
+    foreach my $class (sort keys(%{ $data })) {
         my $superclass = $data->{$class}->{parent};
         if ($superclass) {
             $superclass = $prefix . $superclass;
