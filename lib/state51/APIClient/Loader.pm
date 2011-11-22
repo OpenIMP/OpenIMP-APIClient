@@ -103,6 +103,7 @@ sub BUILD {
             foreach my $cn (@class_names) {
                 if (index($type, $cn)>=0) {
                     $type =~ s/$cn/$prefix$cn/g;
+                    last;
                 }
             }
 
