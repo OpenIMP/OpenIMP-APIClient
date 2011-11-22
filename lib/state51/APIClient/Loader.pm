@@ -89,16 +89,28 @@ sub BUILD {
     my ($self) = @_;
     my $data = YAML::LoadFile($self->schema_file);
 
+    my @class_names = sort { length($b) <=> length($a) } keys %{ $data };
+
+    my $prefix = $self->class_prefix;
+
     foreach my $class (keys(%{ $data })) {
-        my $meta = Moose::Meta::Class->create($self->class_prefix.$class);
-        print $meta->instance_metaclass."\n";
+        my $meta = Moose::Meta::Class->create("$prefix$class");
         foreach my $attr (@{ $data->{$class}->{attributes} }) {
             print "building $class / ".$attr->{name}."\n";
+
+            my $type = $attr->{type};
+            # XXX extremely crude type munging, should parse properly.
+            foreach my $cn (@class_names) {
+                if (index($type, $cn)>=0) {
+                    $type =~ s/$cn/$prefix$cn/g;
+                }
+            }
+
             $meta->add_attribute(
                 Moose::Meta::Attribute->new(
                     $attr->{name},
                     is => 'ro',
-                    isa => $attr->{type},
+                    isa => $type,
                     documentation => $attr->{documentation},
                 )
             );
