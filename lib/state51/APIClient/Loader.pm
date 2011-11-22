@@ -105,13 +105,12 @@ sub BUILD {
         if ($superclass) {
             $superclass = $prefix . $superclass;
         }
+        $superclass ||= 'state51::APIClient::REST';
 
         my $meta = Moose::Meta::Class->create("$prefix$class",
-            $superclass ? ( superclasses => [ $superclass ] ) : ()
+            superclasses => [ $superclass ],
         );
         foreach my $attr (@{ $data->{$class}->{attributes} }) {
-            print "building $class / ".$attr->{name}."\n";
-
             my $type = $attr->{type};
             # XXX extremely crude type munging, should parse properly.
             foreach my $cn (@class_names) {
