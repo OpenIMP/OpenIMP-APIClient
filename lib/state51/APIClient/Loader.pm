@@ -47,9 +47,6 @@ sub load_class {
     $class = $self->class_prefix.$class;
 
     print "building a $class\n";
-    if ($class eq 'state51::APIClient::Media::v1::MFS::Metadata::Recording') {
-        print Dumper($hash);
-    }
 
     my %init;
 
