@@ -481,17 +481,6 @@ MFS::Metadata::Track:
     - documentation: The volume number of this volume of the release (e.g. disc 2 on a double CD is volume 2)
       name: VolumeNumber
       type: Int|Undef
-MFS::Pager:
-  attributes:
-    - documentation: The number of pages of responses which the pager will iterate over
-      name: NumberOfPages
-      type: Int
-    - documentation: The total number of entries in the paged set
-      name: NumberOfEntries
-      type: Int
-    - documentation: A list of the URLs of each of the pages in the set
-      name: Pages
-      type: 'ArrayRef[Str]'
 MediaAPI::Data::Delivery:
   attributes:
     - documentation: FIXME
@@ -578,3 +567,28 @@ MediaAPI::Data::ImportRequest:
     - documentation: ~
       name: releases_incomplete
       type: 'ArrayRef[MFS::Metadata::Release]'
+MediaAPI::Data::Offer:
+  attributes:
+    - documentation: The terms applying to this offer
+      name: Terms
+      type: 'Maybe[ArrayRef[MediaAPI::Data::Offer::Terms]]'
+    - documentation: The type of Offer
+      name: UseType
+      type: Str
+MediaAPI::Data::Offer::Terms:
+  attributes:
+    - documentation: A list of ISO country codes that this relationship applies in
+      name: Countries
+      type: 'ArrayRef[Str]'
+    - documentation: The price range type
+      name: Price
+      type: 'Maybe[Str]'
+    - documentation: The date and time this relationship began
+      name: Began
+      type: Str
+    - documentation: The date and time the pre order release date
+      name: PreOrderReleaseDate
+      type: Str
+    - documentation: The date and time this relationship ended
+      name: Ended
+      type: Str
