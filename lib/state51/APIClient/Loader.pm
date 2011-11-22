@@ -65,6 +65,11 @@ sub load_class {
         elsif ((ref($val) eq 'HASH') && $val->{__CLASS__}) {
             return $self->load_class($val);
         }
+        elsif ((ref($val) eq 'HASH') && $val->{__REPRESENTATION__}) {
+            # TODO!  Add some magic logic to load the referenced class.
+            return;
+        }
+
         elsif (ref($val) eq 'HASH') {
             return {
                 map { $_ => $crunch_value->($val->{$_}) }
@@ -78,7 +83,10 @@ sub load_class {
 
 
     foreach my $k (keys %{ $hash }) {
-        $init{$k} = $crunch_value->($hash->{$k});
+        my @r = ( $crunch_value->($hash->{$k}) );
+        if (@r) {
+            $init{$k} = $r[0]
+        }
     }
 
     my $obj;
