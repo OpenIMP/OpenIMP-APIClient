@@ -9,8 +9,6 @@ use MooseX::Types::ISO8601;
 use Try::Tiny;
 use state51::Types;
 
-with qw/ state51::Mixin::APIClient /;
-
 has class_prefix => (
     isa => Str,
     is  => 'ro',
@@ -18,28 +16,11 @@ has class_prefix => (
     default => 'state51::APIClient::Media::v1::',
 );
 
-has config_file => (
-    isa => Str,
-    is  => 'ro',
-);
-
 has schema_file => (
     isa => Str,
     is  => 'ro',
     required => 1,
 );
-
-sub BUILDARGS {
-    my ($self) = shift;
-    my $args = $self->SUPER::BUILDARGS(@_);
-
-    my $conf = YAML::LoadFile($args->{config_file});
-    $args->{uri}      ||= $conf->{s51_api}->{uri};
-    $args->{user}     ||= $conf->{s51_api}->{username};
-    $args->{password} ||= $conf->{s51_api}->{password};
-
-    return $args;
-}
 
 sub load_class {
     my ($self, $hash) = @_;
