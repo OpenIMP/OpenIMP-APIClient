@@ -2,7 +2,6 @@ package state51::APIClient::Media;
 
 use MooseX::Singleton;
 use File::ShareDir qw/ module_file /;
-use state51::APIClient;
 use state51::APIClient::Loader;
 use MooseX::Types::Moose qw/ Str /;
 
@@ -32,7 +31,7 @@ has loader => (
     default => sub {
         state51::APIClient::Loader->new(
             class_prefix => 'state51::APIClient::Media::v1::',
-            schema_file => module_file('state51::APIClient', 'mediaapi.yaml'),
+            schema_file => module_file(__PACKAGE__, 'mediaapi.yaml'),
         );
     },
     lazy => 1,
