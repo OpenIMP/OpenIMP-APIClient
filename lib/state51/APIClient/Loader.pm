@@ -47,8 +47,6 @@ sub load_class {
     my $class = $hash->{__CLASS__} or die "No __CLASS__ element.  Have: ".Dumper($hash);
     $class = $self->class_prefix.$class;
 
-    print "building a $class\n";
-
     my %init;
 
     my $crunch_value; $crunch_value = sub {
