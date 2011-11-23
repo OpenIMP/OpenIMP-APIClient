@@ -14,6 +14,7 @@ sub find_track {
     die "Could not find volume $vol track $track";
 }
 
-__PACKAGE__->make_immmutable;
+# Invoked by state51::APIClient::Loader when exploding all the attributes from yaml.
+# __PACKAGE__->meta->make_immutable;
 
 1;

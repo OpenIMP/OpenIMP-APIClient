@@ -1,4 +1,4 @@
-package state51::APIClient::Media;
+package state51::APIClient::Media::v1;
 
 use MooseX::Singleton;
 use File::ShareDir qw/ module_file /;
