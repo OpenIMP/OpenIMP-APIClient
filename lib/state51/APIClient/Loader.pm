@@ -95,9 +95,23 @@ sub BUILD {
         }
         $superclass ||= 'state51::APIClient::REST';
 
-        my $meta = Moose::Meta::Class->create("$prefix$class",
+        my $meta;
+        try {
+            Class::MOP::load_class("$prefix$class");
+            $meta = "$prefix$class"->meta;
+        };
+
+        $meta ||= Moose::Meta::Class->create("$prefix$class",
             superclasses => [ $superclass ],
         );
+
+        if (scalar($meta->superclasses) != 1) {
+            die "erk, wrong number of superclasses";
+        }
+        if (($meta->superclasses)[0] ne $superclass) {
+            die "erk, wrong superclass";
+        }
+
         foreach my $attr (@{ $data->{$class}->{attributes} }) {
             my $type = $attr->{type};
             # XXX extremely crude type munging, should parse properly.

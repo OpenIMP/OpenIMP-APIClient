@@ -22,5 +22,7 @@ my $obj = $loader->load_class(LoadFile(File::Spec->catfile($misc_dir, "nmc_50233
 isa_ok($obj, 'state51::APIClient::Media::v1::MFS::Metadata::Release');
 isa_ok($obj, 'state51::APIClient::REST');
 
+is($obj->foo, 'hello');
+
 done_testing();
 
