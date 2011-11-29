@@ -41,7 +41,11 @@ method _build__ua () {
 }
 
 method GET ($path) {
-    my $req = HTTP::Request::Common::GET( $self->_uri_with_path(@$path) );
+    return $self->GET($self->_uri_with_path(@$path));
+}
+
+method GET_uri ($uri) {
+    my $req = HTTP::Request::Common::GET( $uri );
     $req->header('Accept' => 'application/json');
     $req->header('Content-Type' => 'application/x-www-form-urlencoded');
     $self->_parse_response($self->_ua->request( $req ) )
