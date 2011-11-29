@@ -129,15 +129,6 @@ sub BUILD {
             die "erk, wrong superclass";
         }
 
-        $meta->add_attribute(
-            Moose::Meta::Attribute->new(
-                "__REPRESENTATION__",
-                is => "ro",
-                isa => "Str",
-                documentation => "The URI of this object.",
-            )
-        );
-
         foreach my $attr (@{ $data->{$class}->{attributes} }) {
             my $type = $attr->{type};
             # XXX extremely crude type munging, should parse properly.
