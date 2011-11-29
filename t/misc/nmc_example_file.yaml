@@ -1,0 +1,16 @@
+---
+BitRate: 1411
+Duration: PT00H30M39.839999S
+FileSize: 324547820
+Id: 478181073
+MimeMajor: audio
+MimeMinor: wav
+SHA1DigestBase64: 8/itRVmWrU0ciqpvMhmIEeDZg+8
+Stored: STORED
+__CLASS__: MFS::File::Audio
+__REPRESENTATION__: /filestore/478181073
+crc32: 2862122757
+encoding:
+  __REPRESENTATION__: /encoding/wav_44_16_2
+tracks:
+  - __REPRESENTATION__: /release/upc/5023363017725/track/1
