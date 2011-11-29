@@ -17,7 +17,7 @@ MFS::File:
       type: Int
     - documentation: A unique ID to refer to this file with
       name: Id
-      type: Num
+      type: Int
     - documentation: The major part of the MIME type
       name: MimeMajor
       type: Str
