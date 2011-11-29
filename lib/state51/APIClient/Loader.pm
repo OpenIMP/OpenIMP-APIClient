@@ -8,6 +8,7 @@ use Data::Dumper;
 use MooseX::Types::ISO8601;
 use Try::Tiny;
 use state51::Types;
+use Moose::Meta::Class;
 
 has class_prefix => (
     isa => Str,
@@ -30,15 +31,23 @@ sub load_class {
 
     my %init;
 
+    my $meta = $class->meta();
+
     my $crunch_value; $crunch_value = sub {
-        my ($val) = @_;
+        my ($val, $type) = @_;
+
+        if ($type && $type =~ /^Maybe\[(.+)\]$/) {
+            $type = $1;
+        }
 
         if (!ref($val)) {
             return $val;
         }
         elsif (ref($val) eq 'ARRAY') {
+            $type =~ /^ArrayRef(?:\[(.+)\])?$/ or die "bad type for array: $type";
+            my $inside_type = $1;
             return [
-                map { $crunch_value->($_) } @{ $val }
+                map { $crunch_value->($_, $inside_type) } @{ $val }
             ];
         }
         elsif ((ref($val) eq 'HASH') && $val->{__CLASS__}) {
@@ -46,12 +55,17 @@ sub load_class {
         }
         elsif ((ref($val) eq 'HASH') && $val->{__REPRESENTATION__}) {
             # TODO!  Add some magic logic to load the referenced class.
+
+            # We need to know the class wanted.
+
             return;
         }
 
         elsif (ref($val) eq 'HASH') {
+            $type =~ /^HashRef\[(.+)\]$/ or die "bad type for hashref: $type";
+            my $inside_type = $1;
             return {
-                map { $_ => $crunch_value->($val->{$_}) }
+                map { $_ => $crunch_value->($val->{$_}, $inside_type) }
                 keys %{ $val }
             }
         }
@@ -62,7 +76,10 @@ sub load_class {
 
 
     foreach my $k (keys %{ $hash }) {
-        my @r = ( $crunch_value->($hash->{$k}) );
+        next if $k eq '__CLASS__';
+        my $type_cons = $meta->find_attribute_by_name($k)->type_constraint->name;
+
+        my @r = ( $crunch_value->($hash->{$k}, $type_cons) );
         if (@r) {
             $init{$k} = $r[0]
         }
@@ -111,6 +128,15 @@ sub BUILD {
         if (($meta->superclasses)[0] ne $superclass) {
             die "erk, wrong superclass";
         }
+
+        $meta->add_attribute(
+            Moose::Meta::Attribute->new(
+                "__REPRESENTATION__",
+                is => "ro",
+                isa => "Str",
+                documentation => "The URI of this object.",
+            )
+        );
 
         foreach my $attr (@{ $data->{$class}->{attributes} }) {
             my $type = $attr->{type};
