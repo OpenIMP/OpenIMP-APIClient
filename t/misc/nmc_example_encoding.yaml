@@ -1,0 +1,10 @@
+---
+Bitrate: 1411
+Channels: 2
+Codec: PCM
+Description: ripper wav files
+Family: wav
+Name: wav_44_16_2
+PreviewLength: 0
+__CLASS__: MFS::Metadata::Encoding
+__REPRESENTATION__: /encoding/wav_44_16_2

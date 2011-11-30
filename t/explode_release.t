@@ -8,6 +8,7 @@ use YAML qw/ LoadFile /;
 use FindBin;
 use File::Spec;
 use Test::More;
+use Test::MockObject;
 use File::ShareDir qw/ module_file /;
 
 my $misc_dir = File::Spec->catdir("$FindBin::Bin", "misc");
@@ -17,7 +18,16 @@ my $loader = state51::APIClient::Loader->new(
     schema_file => module_file('state51::APIClient::Media::v1', 'mediaapi.yaml'),
 );
 
-my $obj = $loader->load_class(LoadFile(File::Spec->catfile($misc_dir, "nmc_5023363017725.yaml")), undef, state51::APIClient::Media::v1->instance);
+my $invocations = 0;
+my $return;
+
+my $pretend_api = Test::MockObject->new();
+$pretend_api->mock('GET', sub {
+    $invocations++;
+    return $return;
+});
+
+my $obj = $loader->load_class(LoadFile(File::Spec->catfile($misc_dir, "nmc_5023363017725.yaml")), undef, $pretend_api);
 
 isa_ok($obj, 'state51::APIClient::Media::v1::MFS::Metadata::Release');
 isa_ok($obj, 'state51::APIClient::REST');
@@ -42,9 +52,16 @@ is($track1->files->[0]->encoding->Name, 'wav_44_16_2');
 ok($track1->files->[0]->encoding->has_Name);
 ok(!$track1->files->[0]->encoding->has_Bitrate);
 is($track1->files->[0]->encoding->__LOADED__, 0, 'still not fully loaded');
+
+is($invocations, 0);
+$return = LoadFile(File::Spec->catfile($misc_dir, "nmc_example_encoding.yaml"));
+
 is($track1->files->[0]->encoding->Bitrate, 1411);
+
+is($invocations, 1);
 is($track1->files->[0]->encoding->__LOADED__, 1, 'now loaded');
 is($track1->files->[0]->encoding->Codec, 'PCM');
+is($invocations, 1, 'only one HTTP request');
 
 done_testing();
 
