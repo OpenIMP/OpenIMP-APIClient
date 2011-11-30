@@ -43,9 +43,8 @@ ok($track1->files->[0]->encoding->has_Name);
 ok(!$track1->files->[0]->encoding->has_Bitrate);
 is($track1->files->[0]->encoding->__LOADED__, 0, 'still not fully loaded');
 is($track1->files->[0]->encoding->Bitrate, 1411);
-
-
-
+is($track1->files->[0]->encoding->__LOADED__, 1, 'now loaded');
+is($track1->files->[0]->encoding->Codec, 'wav');
 
 done_testing();
 
