@@ -43,7 +43,7 @@ has loader => (
 sub get_release {
     my ($self, $asset_controller, $upc) = @_;
 
-    return $self->load_class($self->GET(["licensor", $asset_controller, "release", "upc", $upc]));
+    return $self->load_class($self->GET(["licensor", $asset_controller, "release", "upc", $upc]), undef, $self);
 }
 
 __PACKAGE__->meta->make_immutable;

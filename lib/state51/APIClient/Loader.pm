@@ -24,12 +24,17 @@ has schema_file => (
 );
 
 sub load_class {
-    my ($self, $hash) = @_;
+    my ($self, $hash, $obj, $api_client) = @_;
 
     my $class = $hash->{__CLASS__} or die "No __CLASS__ element.  Have: ".Dumper($hash);
     $class = $self->class_prefix.$class;
 
-    my %init;
+    my %init = (
+        _loader => $self,
+    );
+    if ($api_client) {
+        $init{_loaded} = $api_client;
+    }
 
     my $meta = $class->meta();
 
@@ -57,6 +62,9 @@ sub load_class {
             # TODO!  Add some magic logic to load the referenced class.
 
             # We need to know the class wanted.
+            return $type->new(
+                __REPRESENTATION__ => $val->{__REPRESENTATION__},
+            );
 
             return;
         }
@@ -85,14 +93,27 @@ sub load_class {
         }
     }
 
-    my $obj;
-    try {
-        $obj = $class->new( %init );
+    if ($obj) {
+        die "already loaded!" if $obj->__LOADED__();
+        die "bad subclass" unless ($class->isa(ref($obj)));
+
+        $obj->rebless_instance($class);
+
+        foreach my $k (keys %init) {
+            $obj->$k($init{$k});
+        }
     }
-    catch {
-        warn Dumper( \%init );
-        die $_;
-    };
+    else {
+        try {
+         $obj = $class->new( %init );
+        }
+        catch {
+            warn Dumper( \%init );
+            die $_;
+        };
+    }
+
+    $obj->__LOADED__(1);
 
     return $obj;
 }

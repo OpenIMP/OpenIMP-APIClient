@@ -33,5 +33,10 @@ isa_ok($track4, 'state51::APIClient::Media::v1::MFS::Metadata::Track');
 is($track4->TrackNumber, 4);
 is($track4->VolumeNumber, 1);
 
+is(scalar(@{ $track1->files }), 9);
+isa_ok($track1->files->[0], 'state51::APIClient::Media::v1::MFS::File::Audio');
+is($track1->files->[0]->__LOADED__, 1);
+is($track1->files->[0]->__REPRESENTATION__, "/filestore/478181073");
+
 done_testing();
 
