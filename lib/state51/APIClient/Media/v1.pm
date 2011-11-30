@@ -4,6 +4,7 @@ use MooseX::Singleton;
 use File::ShareDir qw/ module_file /;
 use state51::APIClient::Loader;
 use MooseX::Types::Moose qw/ Str /;
+use File::Spec;
 
 with qw/ state51::Mixin::APIClient /;
 
@@ -12,6 +13,19 @@ has config_file => (
     is  => 'ro',
     default => '/etc/state51-api-auth.yml',
 );
+
+sub _config_file_local {
+    if ($^O eq 'Win32') {
+        local $@;
+        my $root = eval {"require Win32; Win32::GetFolderPath(Win32::CSIDL_APPDATA);"};
+        die "could not find CISDL__APPDATA: $@" unless $root;
+
+        return File::Spec->catfile($root, "state51-api-auth.yml");
+    }
+    else {
+        return "/etc/state51-api-auth.yml";
+    }
+}
 
 around BUILDARGS => sub {
     my ($orig, $class, %args) = shift;
