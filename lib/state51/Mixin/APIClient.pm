@@ -9,6 +9,7 @@ use HTTP::Request::Common ();
 use Data::Dumper;
 use MooseX::Getopt ();
 use Try::Tiny;
+use Digest::SHA1;
 use namespace::autoclean;
 
 MooseX::Getopt::OptionTypeMap->add_option_type_to_map( $_, '=s' )
@@ -58,6 +59,29 @@ method PUT ($path, @p) {
     my $req = HTTP::Request::Common::PUT( $self->_uri_with_path(@$path), @p );
     $req->header('Accept' => 'application/json');
     $self->_parse_response($self->_ua->request( $req ) )
+}
+
+method GET_file ($path, $length, $sha1, $dest) {
+    open(my $fh, ">", $dest) or die "could not open $dest: $!";
+
+    my $req = HTTP::Request::Common::GET( $self->_uri_with_path(@$path) );
+
+    my $sha1_found = Digest::SHA1->new();
+    my $len = 0;
+
+    $self->_ua->request($req, sub {
+        my ($data) = @_;
+        syswrite($fh, $data) == length($data) or die "write failed: $!";
+        $sha1_found->add($data);
+        $len+=length($data);
+    });
+
+    die "received $len bytes, expected $length" if $length != $len;
+    die "expected checksum $sha1, data receieved ".$sha1_found->b64digest if $sha1_found->b64digest ne $sha1;
+
+    close $fh;
+
+    return;
 }
 
 has _depth => ( isa => Int, is => 'rw', default => 0, required => 1 );
