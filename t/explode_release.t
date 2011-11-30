@@ -17,7 +17,7 @@ my $loader = state51::APIClient::Loader->new(
     schema_file => module_file('state51::APIClient::Media::v1', 'mediaapi.yaml'),
 );
 
-my $obj = $loader->load_class(LoadFile(File::Spec->catfile($misc_dir, "nmc_5023363017725.yaml")));
+my $obj = $loader->load_class(LoadFile(File::Spec->catfile($misc_dir, "nmc_5023363017725.yaml")), undef, state51::APIClient::Media::v1->instance);
 
 isa_ok($obj, 'state51::APIClient::Media::v1::MFS::Metadata::Release');
 isa_ok($obj, 'state51::APIClient::REST');
@@ -35,8 +35,17 @@ is($track4->VolumeNumber, 1);
 
 is(scalar(@{ $track1->files }), 9);
 isa_ok($track1->files->[0], 'state51::APIClient::Media::v1::MFS::File::Audio');
-is($track1->files->[0]->__LOADED__, 1);
 is($track1->files->[0]->__REPRESENTATION__, "/filestore/478181073");
+isa_ok($track1->files->[0]->encoding, 'state51::APIClient::Media::v1::MFS::Metadata::Encoding');
+is($track1->files->[0]->encoding->__LOADED__, 0, 'not loaded fully yet');
+is($track1->files->[0]->encoding->Name, 'wav_44_16_2');
+ok($track1->files->[0]->encoding->has_Name);
+ok(!$track1->files->[0]->encoding->has_Bitrate);
+is($track1->files->[0]->encoding->__LOADED__, 0, 'still not fully loaded');
+is($track1->files->[0]->encoding->Bitrate, 1411);
+
+
+
 
 done_testing();
 

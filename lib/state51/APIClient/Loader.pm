@@ -33,7 +33,7 @@ sub load_class {
         _loader => $self,
     );
     if ($api_client) {
-        $init{_loaded} = $api_client;
+        $init{_client} = $api_client;
     }
 
     my $meta = $class->meta();
@@ -56,7 +56,7 @@ sub load_class {
             ];
         }
         elsif ((ref($val) eq 'HASH') && $val->{__CLASS__}) {
-            return $self->load_class($val);
+            return $self->load_class($val, undef, $api_client);
         }
         elsif ((ref($val) eq 'HASH') && $val->{__REPRESENTATION__}) {
             # TODO!  Add some magic logic to load the referenced class.
@@ -97,10 +97,12 @@ sub load_class {
         die "already loaded!" if $obj->__LOADED__();
         die "bad subclass" unless ($class->isa(ref($obj)));
 
-        $obj->rebless_instance($class);
+        $meta->rebless_instance($obj);
 
         foreach my $k (keys %init) {
-            $obj->$k($init{$k});
+            next if $k eq '_loader' || $k eq '_client';
+            my $writer = "_set_$k";
+            $obj->$writer($init{$k});
         }
     }
     else {
@@ -112,8 +114,6 @@ sub load_class {
             die $_;
         };
     }
-
-    $obj->__LOADED__(1);
 
     return $obj;
 }
@@ -160,13 +160,29 @@ sub BUILD {
                 }
             }
 
+            my $attr_name = $attr->{name};
+            my $predicate = "has_$attr_name";
+
             $meta->add_attribute(
                 Moose::Meta::Attribute->new(
-                    $attr->{name},
+                    $attr_name,
                     is => 'ro',
                     isa => $type,
                     documentation => $attr->{documentation},
+                    predicate => $predicate,
+                    writer    => "_set_$attr_name",
                 )
+            );
+            $meta->add_before_method_modifier(
+                $attr_name,
+                sub {
+                    my ($s) = @_;
+
+                    if (!$s->$predicate()) {
+                        $s->_load();
+                    }
+                    return;
+                }
             );
         }
         $meta->add_method( meta => sub { $meta } );

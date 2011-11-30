@@ -7,6 +7,7 @@ has __REPRESENTATION__ => (
     is => 'ro',
     isa => 'Str',
     documentation => 'The URI of the object represented.',
+    writer => '_set___REPRESENTATION__',
 );
 
 has _client => (
@@ -28,8 +29,9 @@ has __LOADED__ => (
 sub _load {
     my ($self) = @_;
     return if $self->__LOADED__();
-    my $hash = $self->_client->GET_uri($self->__REPRESENTATION__);
-    $self->_loader->load_class($hash, $self, $self->_api_client);
+    warn "inflating from ".$self->__REPRESENTATION__;
+    my $hash = $self->_client->GET([$self->__REPRESENTATION__]);
+    $self->_loader->load_class($hash, $self, $self->_client);
     return;
 }
 
