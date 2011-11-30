@@ -2,6 +2,7 @@ package state51::APIClient::REST;
 
 use Moose;
 use MooseX::Types::Moose qw/ Bool /;
+use Moose::Util::TypeConstraints;
 
 has __REPRESENTATION__ => (
     is => 'ro',
@@ -12,7 +13,7 @@ has __REPRESENTATION__ => (
 
 has _client => (
     is => 'ro',
-    does => 'state51::Mixin::APIClient',
+    isa => duck_type ['GET'],
 );
 
 has _loader => (
