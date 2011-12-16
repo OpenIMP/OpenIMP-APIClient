@@ -9,9 +9,9 @@ WriteMakefile(
     NAME              => 'state51::APIClient',
     VERSION_FROM      => 'lib/state51/APIClient.pm', # finds $VERSION
     PREREQ_PM         => {
-        'state51::Shared' => 0,
         'Digest::SHA1' => 0,
         'Moose' => 0,
+        'MooseX::Types::GTIN' => 0,
         'MooseX::Types::Moose' => 0,
         'MooseX::Types::URI' => 0,
         'Method::Signatures::Simple' => 0,

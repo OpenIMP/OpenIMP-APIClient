@@ -3,7 +3,6 @@ Section: perl
 Priority: optional
 Build-Depends: debhelper (>= 5.0.0)
 Build-Depends-Indep: perl (>= 5.10.1),
-    libstate51-shared-perl,
     libmoose-perl,
     libmoosex-types-perl,
     libmoosex-types-uri-perl,
@@ -12,7 +11,8 @@ Build-Depends-Indep: perl (>= 5.10.1),
     libjson-perl,
     libtry-tiny-perl,
     libnamespace-autoclean-perl,
-    libmoosex-getopt-perl
+    libmoosex-getopt-perl,
+    libmoosex-types-gtin-perl
 Maintainer: state51 <svn-notify@state51.co.uk>
 Standards-Version: 3.7.2
 Homepage: http://state51.co.uk/
@@ -29,7 +29,8 @@ Depends: ${perl:Depends}, ${misc:Depends},
     libjson-perl,
     libtry-tiny-perl,
     libnamespace-autoclean-perl,
-    libmoosex-getopt-perl
+    libmoosex-getopt-perl,
+    libmoosex-types-gtin-perl
 Description: state51 API client.
 Replaces: libstate51-perl (<<2011111101)
 Breaks: libstate51-perl (<<2011111101)
