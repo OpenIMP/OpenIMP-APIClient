@@ -6,8 +6,8 @@ use state51::APIClient;
 use YAML ();
 use Data::Dumper;
 use MooseX::Types::ISO8601;
+use MooseX::Types::GTIN;
 use Try::Tiny;
-use state51::Types;
 use Moose::Meta::Class;
 
 has class_prefix => (
