@@ -112,7 +112,7 @@ MFS::Metadata::Encoding:
     - documentation: The number of channels present in this audio encoding. Usually 2.
       name: Channels
       type: Str
-    - documentation: 'Codec is Coder/DECoder - the system used to encode this file.. This is usually similar to the Family'
+    - documentation: 'Codec is Coder/Decoder - the system used to encode this file. This is usually similar to the Family'
       name: Codec
       type: Str
     - documentation: A textual description of this encoding type
@@ -343,7 +343,7 @@ MFS::Metadata::Release:
       type: Str
     - documentation: The UPC for this release
       name: UPC
-      type: state51::Types::Barcode
+      type: MooseX::Types::GTIN::GTIN
     - documentation: Unique identifiers for this release from other sources (e.g. the ITunes specific ID
       name: external_identifiers
       type: 'HashRef[Str]'
