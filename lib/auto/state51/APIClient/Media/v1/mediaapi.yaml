@@ -10,6 +10,33 @@ MFS::AssetController:
     - documentation: ~
       name: Name
       type: Str
+MFS::Error:
+  attributes:
+    - documentation: This field may contain a specific error string
+      name: errormessage
+      type: Str
+MFS::Error::BadParameters:
+  attributes:
+    - documentation: This field may contain a specific error string
+      name: errormessage
+      type: Str
+  parent: MFS::Error
+MFS::Error::Conflict:
+  parent: MFS::Error
+MFS::Error::InternalServerError:
+  parent: MFS::Error
+MFS::Error::NotFound:
+  parent: MFS::Error
+MFS::Error::NotImplemented:
+  attributes:
+    - documentation: This field may contain a specific error string
+      name: errormessage
+      type: Str
+  parent: MFS::Error
+MFS::Error::NotModified:
+  parent: MFS::Error
+MFS::Error::PermissionDenied:
+  parent: MFS::Error
 MFS::File:
   attributes:
     - documentation: 'The size of the file, in bytes'
@@ -104,6 +131,17 @@ MFS::FileToken:
     - documentation: The File which this file key allows access to
       name: file
       type: MFS::File
+MFS::Metadata::ArtistAppearance:
+  attributes:
+    - documentation: Artist identification may be provided by several organisations. The organisation provided this identification is provided here.
+      name: authority
+      type: MFS::AssetController
+    - documentation: The identification scheme the identifier is under.
+      name: scheme
+      type: Str
+    - documentation: The artist identifier provided.
+      name: value
+      type: Str
 MFS::Metadata::Encoding:
   attributes:
     - documentation: 'For CBR encoding types, this is the bitrate of the file, for VBR encoding types, this is the average bitrate'
@@ -350,9 +388,15 @@ MFS::Metadata::Release:
     - documentation: 'The front cover artwork for this release. This is a file in the system, and you can create a file token for it if you want/need to.'
       name: imagefrontcover
       type: 'Maybe[MFS::File::Image]'
+    - documentation: Identifiers for the artists in this release inferred from the names provided in the metadata.
+      name: inferred_artist_identifiers
+      type: 'ArrayRef[MFS::Metadata::ArtistAppearance]'
     - documentation: ~
       name: offers
       type: ArrayRef
+    - documentation: 'Identifiers for the artists in this release, as provided in the metadata.'
+      name: provided_artist_identifiers
+      type: 'ArrayRef[MFS::Metadata::ArtistAppearance]'
     - documentation: All the tracks (MFS::Metadata::Track) objects associated with this release
       name: tracks
       type: 'ArrayRef[MFS::Metadata::Track]'
@@ -412,6 +456,17 @@ MFS::Metadata::Track:
     - documentation: The release (MFS::Metadata::Release) which this track is present on
       name: release
       type: MFS::Metadata::Release
+MFS::Pager:
+  attributes:
+    - documentation: The total number of entries in the paged set
+      name: NumberOfEntries
+      type: Int
+    - documentation: The number of pages of responses which the pager will iterate over
+      name: NumberOfPages
+      type: Int
+    - documentation: A list of the URLs of each of the pages in the set
+      name: Pages
+      type: 'ArrayRef[Str]'
 MediaAPI::Data::Delivery:
   attributes:
     - documentation: Your ID for this delivery
