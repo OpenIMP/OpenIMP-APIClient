@@ -311,6 +311,12 @@ MFS::Metadata::Recording:
     - documentation: A list of files (MFS::File::Audio objects) associated with this recording
       name: files
       type: 'ArrayRef[MFS::File]'
+    - documentation: Identifiers for the artists in this release inferred from the names provided in the metadata.
+      name: inferred_artist_identifiers
+      type: 'ArrayRef[MFS::Metadata::ArtistAppearance]'
+    - documentation: 'Identifiers for the artists in this release, as provided in the metadata.'
+      name: provided_artist_identifiers
+      type: 'ArrayRef[MFS::Metadata::ArtistAppearance]'
     - documentation: A list of tracks (MFS::Metadata::Track objects) associated with this recording
       name: tracks
       type: 'ArrayRef[MFS::Metadata::Track]'
