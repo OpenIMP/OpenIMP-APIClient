@@ -133,13 +133,13 @@ MFS::FileToken:
       type: MFS::File
 MFS::Metadata::ArtistAppearance:
   attributes:
-    - documentation: Artist identification may be provided by several organisations. The organisation provided this identification is provided here.
+    - documentation: Artist identification may be provided by several organisations. The organisation providing the identification is supplied here.
       name: authority
       type: MFS::AssetController
     - documentation: The identification scheme the identifier is under.
       name: scheme
       type: Str
-    - documentation: The artist identifier provided.
+    - documentation: The artist identifier supplied.
       name: value
       type: Str
 MFS::Metadata::Encoding:
@@ -251,7 +251,7 @@ MFS::Metadata::Recording:
     - documentation: A list of people listed as lyricists for this recording
       name: Lyricists
       type: 'ArrayRef[Str]'
-    - documentation: "This is the artist credited for this recording, it isn't necessarily an individual, it can be the name of a group, 'various' or 'A feat B'"
+    - documentation: "This is the artist credited for this recording, it isn't necessarily an individual, it can be the name of a group, 'various' or 'A feat B'. This is the first artist listed in our traditional spreadsheet import format, but has an individual field in DDEX"
       name: MainArtist
       type: Str
     - documentation: A list of people listed as mixers for this recording
@@ -311,10 +311,10 @@ MFS::Metadata::Recording:
     - documentation: A list of files (MFS::File::Audio objects) associated with this recording
       name: files
       type: 'ArrayRef[MFS::File]'
-    - documentation: Identifiers for the artists in this release inferred from the names provided in the metadata.
+    - documentation: Identifiers for the artists credited in this asset inferred from the names provided in the metadata.
       name: inferred_artist_identifiers
       type: 'ArrayRef[MFS::Metadata::ArtistAppearance]'
-    - documentation: 'Identifiers for the artists in this release, as provided in the metadata.'
+    - documentation: 'Identifiers for the artists credited in this asset, available in the OpenIMP database.'
       name: provided_artist_identifiers
       type: 'ArrayRef[MFS::Metadata::ArtistAppearance]'
     - documentation: A list of tracks (MFS::Metadata::Track objects) associated with this recording
@@ -346,13 +346,13 @@ MFS::Metadata::Release:
     - documentation: The GRiD for this release or track
       name: GRiD
       type: 'Maybe[Str]'
-    - documentation: A list of the main (fixed) Genres that this belongs to
+    - documentation: A list of the main (fixed) Genres that this belongs to. Corresponds to primary main and primary sub genres in CI import spreadhseets.
       name: Genres
       type: 'ArrayRef[Str]'
     - documentation: The name of the music label which published this release
       name: LabelName
       type: Str
-    - documentation: The main artist responsible for releasing this release
+    - documentation: 'The main artist responsible for releasing this release. This is the first artist listed in our traditional spreadsheet import format, but has an individual field in DDEX'
       name: MainArtist
       type: Str
     - documentation: The legal name of the rights holder
@@ -376,10 +376,10 @@ MFS::Metadata::Release:
     - documentation: 'The type of release, e.g. EP'
       name: ReleaseType
       type: Str
-    - documentation: A list of the sub (free form) Genres that this belongs to
+    - documentation: A list of the sub (free form) Genres that this belongs to. Corresponds to alternate main and alternate sub genres in CI import spreadhseets.
       name: SubGenres
       type: 'ArrayRef[Str]'
-    - documentation: The subtitle of this release
+    - documentation: 'The subtitle of this release (the DDEX name), called the "version description" in our traditional spreadsheet import format'
       name: SubTitle
       type: Str
     - documentation: The total track count (across all volumes in the release)
@@ -394,13 +394,13 @@ MFS::Metadata::Release:
     - documentation: 'The front cover artwork for this release. This is a file in the system, and you can create a file token for it if you want/need to.'
       name: imagefrontcover
       type: 'Maybe[MFS::File::Image]'
-    - documentation: Identifiers for the artists in this release inferred from the names provided in the metadata.
+    - documentation: Identifiers for the artists credited in this asset inferred from the names provided in the metadata.
       name: inferred_artist_identifiers
       type: 'ArrayRef[MFS::Metadata::ArtistAppearance]'
     - documentation: ~
       name: offers
       type: ArrayRef
-    - documentation: 'Identifiers for the artists in this release, as provided in the metadata.'
+    - documentation: 'Identifiers for the artists credited in this asset, available in the OpenIMP database.'
       name: provided_artist_identifiers
       type: 'ArrayRef[MFS::Metadata::ArtistAppearance]'
     - documentation: All the tracks (MFS::Metadata::Track) objects associated with this release
@@ -420,7 +420,7 @@ MFS::Metadata::Track:
     - documentation: The GRiD for this release or track
       name: GRiD
       type: 'Maybe[Str]'
-    - documentation: A list of the main (fixed) Genres that this belongs to
+    - documentation: A list of the main (fixed) Genres that this belongs to. Corresponds to primary main and primary sub genres in CI import spreadhseets.
       name: Genres
       type: 'ArrayRef[Str]'
     - documentation: The legal name of the rights holder
@@ -438,7 +438,7 @@ MFS::Metadata::Track:
     - documentation: The track's overall sequence number in the release
       name: SequenceNumber
       type: Num
-    - documentation: A list of the sub (free form) Genres that this belongs to
+    - documentation: A list of the sub (free form) Genres that this belongs to. Corresponds to alternate main and alternate sub genres in CI import spreadhseets.
       name: SubGenres
       type: 'ArrayRef[Str]'
     - documentation: The subtitle or remix version for this track
@@ -525,24 +525,24 @@ MediaAPI::Data::ImportRequest:
       type: 'ArrayRef[MFS::Metadata::Release]'
 MediaAPI::Data::Offer:
   attributes:
-    - documentation: The terms applying to this offer
+    - documentation: The terms applying to (limiting) this offer
       name: Terms
       type: 'Maybe[ArrayRef[MediaAPI::Data::Offer::Terms]]'
-    - documentation: The type of Offer
+    - documentation: The type of Offer.
       name: UseType
       type: Str
 MediaAPI::Data::Offer::Terms:
   attributes:
-    - documentation: The date and time this relationship began
+    - documentation: The date and time this term starts (i.e. becomes available)
       name: Began
       type: Str
-    - documentation: A list of ISO country codes that this relationship applies in
+    - documentation: A list of ISO country codes that these terms apply to
       name: Countries
       type: 'ArrayRef[Str]'
-    - documentation: The date and time this relationship ended
+    - documentation: The date and time this term ends (i.e. is no longer available)
       name: Ended
       type: Str
-    - documentation: The date and time the pre order release date
+    - documentation: Pre-order release/availability date for these terms
       name: PreOrderReleaseDate
       type: Str
     - documentation: The price range type
