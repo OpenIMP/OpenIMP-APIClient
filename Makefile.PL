@@ -1,5 +1,6 @@
 use 5.010001;
 use ExtUtils::MakeMaker;
+use FindBin;
 use strict;
 use warnings;
 
@@ -29,3 +30,6 @@ WriteMakefile(
       (ABSTRACT_FROM  => 'lib/OpenIMP/APIClient.pm', # retrieve abstract from module
        AUTHOR         => 'Dave Lambley <davel@openimp.com>') : ()),
 );
+
+# Requires Pod::Markdown
+system("pod2markdown < $FindBin::Bin/lib/OpenIMP/APIClient.pm > $FindBin::Bin/README.md");
