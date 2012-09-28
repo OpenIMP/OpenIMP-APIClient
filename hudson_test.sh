@@ -4,7 +4,6 @@ set -x
 
 export TMPDIR=/space/hudson/tmpfs/api-client-$$
 export FILE_CACHE_DIR=$TMPDIR
-export STATE51_PLATFORM_TEST_DATA=/space/platform-test-data/
 MEMCACHE_SERVERS=
 MOGILE_TRACKER=
 VARNISH_HOSTS=
