@@ -60,4 +60,20 @@ sub get_release {
     return $self->load_class($self->GET(["licensor", $asset_controller, "release", "upc", $upc]), undef, $self);
 }
 
+sub get_file {
+    my ($self, $id) = @_;
+    return $self->load_class($self->GET(["filestore", $id]), undef, $self);
+}
+
+sub post_file {
+    my ($self, $filename, $class, $major, $minor) = @_;
+    return $self->load_class($self->POST_file(
+        ["filestore"],
+        file => [$filename],
+        FileClass => $class || 'MFS::File',
+        MimeMajor => $major || 'application',
+        MimeMinor => $minor || 'octet-stream',
+    ), undef, $self);
+}
+
 __PACKAGE__->meta->make_immutable;

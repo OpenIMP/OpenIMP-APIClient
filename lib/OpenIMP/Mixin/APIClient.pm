@@ -55,6 +55,14 @@ method POST ($path, @p) {
     $self->_parse_response($self->_ua->request( $req ) )
 }
 
+method POST_file ($path, @p) {
+    my $req = HTTP::Request::Common::POST( $self->_uri_with_path(@$path), \@p );
+    $req->header('Accept' => 'application/json');
+    $req->header('Content-Type' => 'multipart/form-data');
+    $self->_parse_response($self->_ua->request( $req ) )
+}
+
+
 method PUT ($path, @p) {
     my $req = HTTP::Request::Common::PUT( $self->_uri_with_path(@$path), @p );
     $req->header('Accept' => 'application/json');
