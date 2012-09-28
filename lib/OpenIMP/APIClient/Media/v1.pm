@@ -1,17 +1,17 @@
-package state51::APIClient::Media::v1;
+package OpenIMP::APIClient::Media::v1;
 
 use MooseX::Singleton;
 use File::ShareDir qw/ module_file /;
-use state51::APIClient::Loader;
+use OpenIMP::APIClient::Loader;
 use MooseX::Types::Moose qw/ Str /;
 use File::Spec;
 
-with qw/ state51::Mixin::APIClient /;
+with qw/ OpenIMP::Mixin::APIClient /;
 
 has config_file => (
     isa => Str,
     is  => 'ro',
-    default => '/etc/state51-api-auth.yml',
+    default => '/etc/openimp-api-auth.yml',
 );
 
 sub _config_file_local {
@@ -20,17 +20,17 @@ sub _config_file_local {
         my $root = eval {"require Win32; Win32::GetFolderPath(Win32::CSIDL_APPDATA);"};
         die "could not find CISDL__APPDATA: $@" unless $root;
 
-        return File::Spec->catfile($root, "state51-api-auth.yml");
+        return File::Spec->catfile($root, "openimp-api-auth.yml");
     }
     else {
-        return "/etc/state51-api-auth.yml";
+        return "/etc/openimp-api-auth.yml";
     }
 }
 
 around BUILDARGS => sub {
     my ($orig, $class, %args) = shift;
 
-    my $conf = YAML::LoadFile($args{config_file} || "/etc/state51-api-auth.yml" );
+    my $conf = YAML::LoadFile($args{config_file} || "/etc/openimp-api-auth.yml" );
     $args{uri}      ||= $conf->{s51_api}->{uri};
     $args{user}     ||= $conf->{s51_api}->{username};
     $args{password} ||= $conf->{s51_api}->{password};
@@ -40,11 +40,11 @@ around BUILDARGS => sub {
 
 
 has loader => (
-    isa => 'state51::APIClient::Loader',
+    isa => 'OpenIMP::APIClient::Loader',
     is  => 'ro',
     default => sub {
-        state51::APIClient::Loader->new(
-            class_prefix => 'state51::APIClient::Media::v1::',
+        OpenIMP::APIClient::Loader->new(
+            class_prefix => 'OpenIMP::APIClient::Media::v1::',
             schema_file => module_file(__PACKAGE__, 'mediaapi.yaml'),
         );
     },

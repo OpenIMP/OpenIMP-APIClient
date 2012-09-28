@@ -1,8 +1,8 @@
-package state51::APIClient::Media::v1::MFS::Metadata::Release;
+package OpenIMP::APIClient::Media::v1::MFS::Metadata::Release;
 
 use Moose;
 
-extends qw/ state51::APIClient::REST /;
+extends qw/ OpenIMP::APIClient::REST /;
 
 sub find_track {
     my ($self, $track, $vol) = @_;
@@ -14,7 +14,7 @@ sub find_track {
     die "Could not find volume $vol track $track";
 }
 
-# Invoked by state51::APIClient::Loader when exploding all the attributes from yaml.
+# Invoked by OpenIMP::APIClient::Loader when exploding all the attributes from yaml.
 # __PACKAGE__->meta->make_immutable;
 
 1;

@@ -6,8 +6,8 @@ use warnings;
 # See lib/ExtUtils/MakeMaker.pm for details of how to influence
 # the contents of the Makefile that is written.
 WriteMakefile(
-    NAME              => 'state51::APIClient',
-    VERSION_FROM      => 'lib/state51/APIClient.pm', # finds $VERSION
+    NAME              => 'OpenIMP::APIClient',
+    VERSION_FROM      => 'lib/OpenIMP/APIClient.pm', # finds $VERSION
     PREREQ_PM         => {
         'Digest::SHA1' => 0,
         'Moose' => 0,
@@ -26,6 +26,6 @@ WriteMakefile(
         'Test::MockObject' => 0,
     },
     ($] >= 5.005 ?     ## Add these new keywords supported since 5.005
-      (ABSTRACT_FROM  => 'lib/state51/APIClient.pm', # retrieve abstract from module
-       AUTHOR         => 'Dave Lambley <davel@state51.co.uk>') : ()),
+      (ABSTRACT_FROM  => 'lib/OpenIMP/APIClient.pm', # retrieve abstract from module
+       AUTHOR         => 'Dave Lambley <davel@openimp.com>') : ()),
 );

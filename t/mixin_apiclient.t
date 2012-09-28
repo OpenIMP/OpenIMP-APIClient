@@ -6,7 +6,7 @@ use Path::Class qw/dir/;
 {
     package TestAPIClient;
     use Moose;
-    with 'state51::Mixin::APIClient';
+    with 'OpenIMP::Mixin::APIClient';
     no Moose;
 }
 

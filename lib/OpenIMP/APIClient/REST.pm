@@ -1,4 +1,4 @@
-package state51::APIClient::REST;
+package OpenIMP::APIClient::REST;
 
 use Moose;
 use MooseX::Types::Moose qw/ Bool /;
@@ -18,7 +18,7 @@ has _client => (
 
 has _loader => (
     is => 'ro',
-    isa => 'state51::APIClient::Loader',
+    isa => 'OpenIMP::APIClient::Loader',
 );
 
 has __LOADED__ => (

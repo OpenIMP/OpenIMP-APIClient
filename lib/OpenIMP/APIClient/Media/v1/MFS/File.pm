@@ -1,10 +1,10 @@
-package state51::APIClient::Media::v1::MFS::File;
+package OpenIMP::APIClient::Media::v1::MFS::File;
 
 use Moose;
 use MooseX::Types::Moose qw/ Str /;
 use File::Temp qw/ tempfile /;
 
-extends qw/ state51::APIClient::REST /;
+extends qw/ OpenIMP::APIClient::REST /;
 
 has local_file_path => (
     is => 'ro',
@@ -31,7 +31,7 @@ sub DEMOLISH {
     return;
 }
 
-# Invoked by state51::APIClient::Loader when exploding all the attributes from yaml.
+# Invoked by OpenIMP::APIClient::Loader when exploding all the attributes from yaml.
 # __PACKAGE__->meta->make_immutable;
 
 1;

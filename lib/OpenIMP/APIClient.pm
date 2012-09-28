@@ -1,4 +1,4 @@
-package state51::APIClient;
+package OpenIMP::APIClient;
 
 our $VERSION = '2011113000';
 
@@ -8,16 +8,16 @@ __END__
 
 =head1 NAME
 
-state51::APIClient - Perl extension for blah blah blah
+OpenIMP::APIClient - Perl extension for blah blah blah
 
 =head1 SYNOPSIS
 
-  use state51::APIClient;
+  use OpenIMP::APIClient;
   blah blah blah
 
 =head1 DESCRIPTION
 
-Stub documentation for state51::APIClient, created by h2xs. It looks like the
+Stub documentation for OpenIMP::APIClient, created by h2xs. It looks like the
 author of the extension was negligent enough to leave the stub
 unedited.
 
@@ -42,11 +42,11 @@ If you have a web site set up for your module, mention it here.
 
 =head1 AUTHOR
 
-Dave Lambley, E<lt>davel@E<gt>
+Dave Lambley, E<lt>davel@openimp.comE<gt>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright (C) 2011 by Dave Lambley
+Copyright (C) 2011-2012 Oscar Music and Media
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself, either Perl version 5.10.1 or,

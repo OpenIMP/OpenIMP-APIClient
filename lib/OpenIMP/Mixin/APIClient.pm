@@ -1,4 +1,4 @@
-package state51::Mixin::APIClient;
+package OpenIMP::Mixin::APIClient;
 use Moose::Role;
 use MooseX::Types::Moose qw/Str Int/;
 use MooseX::Types::URI qw/Uri/;

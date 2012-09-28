@@ -1,8 +1,8 @@
-package state51::APIClient::Loader;
+package OpenIMP::APIClient::Loader;
 
 use Moose;
-use MooseX::Types::Moose qw / Str /;
-use state51::APIClient;
+use MooseX::Types::Moose qw/ Str /;
+use OpenIMP::APIClient;
 use YAML ();
 use Data::Dumper;
 use MooseX::Types::ISO8601;
@@ -14,7 +14,7 @@ has class_prefix => (
     isa => Str,
     is  => 'ro',
     required => 1,
-    default => 'state51::APIClient::Media::v1::',
+    default => 'OpenIMP::APIClient::Media::v1::',
 );
 
 has schema_file => (
@@ -131,7 +131,7 @@ sub BUILD {
         if ($superclass) {
             $superclass = $prefix . $superclass;
         }
-        $superclass ||= 'state51::APIClient::REST';
+        $superclass ||= 'OpenIMP::APIClient::REST';
 
         my $meta;
         try {
