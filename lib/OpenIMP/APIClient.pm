@@ -4,41 +4,27 @@ our $VERSION = '2011113000';
 
 1;
 __END__
-# Below is stub documentation for your module. You'd better edit it!
 
 =head1 NAME
 
-OpenIMP::APIClient - Perl extension for blah blah blah
+OpenIMP::APIClient - Perl client for the OpenIMP API
 
 =head1 SYNOPSIS
 
   use OpenIMP::APIClient;
-  blah blah blah
+
+  ...
 
 =head1 DESCRIPTION
 
-Stub documentation for OpenIMP::APIClient, created by h2xs. It looks like the
-author of the extension was negligent enough to leave the stub
-unedited.
-
-Blah blah blah.
-
-=head2 EXPORT
-
-None by default.
-
-
+Wraps around the OpenIMP API to provide a Perl object interface to the OpenIMP
+API.
 
 =head1 SEE ALSO
 
-Mention other useful documentation such as the documentation of
-related modules or operating system documentation (such as man pages
-in UNIX), or any relevant external documentation such as RFCs or
-standards.
+L<http://openimp.com>
 
-If you have a mailing list set up for your module, mention it here.
-
-If you have a web site set up for your module, mention it here.
+L<http://ci-support.com>
 
 =head1 AUTHOR
 
@@ -51,6 +37,5 @@ Copyright (C) 2011-2012 Oscar Music and Media
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself, either Perl version 5.10.1 or,
 at your option, any later version of Perl 5 you may have available.
-
 
 =cut
