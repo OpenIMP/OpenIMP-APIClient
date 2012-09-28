@@ -1,13 +1,4 @@
 Revision history for Perl extension OpenIMP::APIClient.
 
 2012092800
-    - Became OpenIMP::APIClient from state51::APIClient.
-
-2011111300
-    - Add find_track method.
-    - Automatic loading of objects.
-
-2011111400
-	- original version; created by h2xs 1.23 with options
-		-X state51::APIClient
-
+    - Initial public release.
