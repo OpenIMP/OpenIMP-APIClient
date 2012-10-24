@@ -29,6 +29,12 @@ WriteMakefile(
     ($] >= 5.005 ?     ## Add these new keywords supported since 5.005
       (ABSTRACT_FROM  => 'lib/OpenIMP/APIClient.pm', # retrieve abstract from module
        AUTHOR         => 'Dave Lambley <davel@openimp.com>') : ()),
+
+    META_MERGE => {
+        resources => {
+            repository => "https://github.com/davel/MogileFS-Plugin-RandomWrites",
+        },
+    },
 );
 
 # Requires Pod::Markdown
