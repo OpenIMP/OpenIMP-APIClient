@@ -2,12 +2,12 @@
 
 set -x
 
-RUNNING_IN_HUDSON=1
-TMPDIR=/space/hudson/tmpfs/api-client-$$
-FILE_CACHE_DIR=$TMPDIR
-MEMCACHE_SERVERS=
-MOGILE_TRACKER=
-VARNISH_HOSTS=
+export RUNNING_IN_HUDSON="1"
+export TMPDIR="/space/hudson/tmpfs/api-client-$$"
+export FILE_CACHE_DIR="$TMPDIR"
+export MEMCACHE_SERVERS=""
+export MOGILE_TRACKER=""
+export VARNISH_HOSTS=""
 
 mkdir $TMPDIR
 
